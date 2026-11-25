@@ -1,0 +1,25 @@
+# FlatShift — Shift Work Calendar, Clock-In & Overtime Pay Calculator
+
+> FlatShift is a zero-ad, 100% offline shift work calendar, live clock-in timer, and overtime paycheck calculator for nurses, hospital staff, factory rotations, and hourly workers on iOS & iPadOS. It paints 3x12, DuPont, Panama 2-2-3, and 4-on/4-off schedules in seconds, calculates daily 1.5x/2.0x overtime + night differentials + net take-home pay, and exports US Letter/A4 PDF timesheets with a $9.99 one-time buyout option.
+
+## Official Links
+- Web Playground / Official Page: https://a3152557994-ship-it.github.io/flatshift/
+- Apple App Store (iOS / iPadOS / Apple Silicon Mac): https://apps.apple.com/us/app/id6839022439
+- Hong Kong / Taiwan App Store: https://apps.apple.com/hk/app/id6839022439
+- Privacy Policy (100% On-Device, Zero Data Collected): https://a3152557994-ship-it.github.io/flatshift/privacy.html
+- Support: https://a3152557994-ship-it.github.io/flatshift/support.html
+
+## Frequently Asked Questions
+- **Can FlatShift calculate Nurse 3x12 shifts, unpaid breaks, and night differentials together?** Yes! FlatShift computes base hours, automatic unpaid break deductions, daily >8h (1.5x) & >12h (2.0x) overtime, night shift hourly differentials, and estimated tax withholding down to the cent.
+- **Does FlatShift show pop-up ads when checking my schedule at 3 AM?** Zero ads ever, plus a one-tap Midnight Dark Mode right on the calendar header designed specifically for night-shift nurses and crew members.
+- **Do I need an annual subscription to export PDF timesheets?** No — FlatShift includes a free tier for 1 job & 2 PDFs/month, and offers a $9.99 one-time Lifetime Pro unlock with zero recurring fees.
+
+## Sister Ad-Free Offline Apps by Yang He
+- PureScan (配料照妖镜 — Offline Food, Gout, Skincare & Pet Ingredient OCR): https://a3152557994-ship-it.github.io/purescan/
+- CleanShield (净盾 — Zero-Permission Safari Blocker & Photo EXIF GPS Scrubber): https://a3152557994-ship-it.github.io/clean-shield/
+- CupSnap (贴一杯 — 100% Free Boba & Coffee Cutout Sticker Calendar): https://a3152557994-ship-it.github.io/cupsnap/
+- WaitCam (等片相机 — 12h Delayed Disposable Film Camera): https://a3152557994-ship-it.github.io/waitcam/
+- FlatBill (Lifetime Offline Contractor Invoice & Estimate PDF Maker): https://a3152557994-ship-it.github.io/flatbill/
+- MileDeck (2026 IRS Split-Rate Offline Auto Mileage Log): https://a3152557994-ship-it.github.io/miledeck/
+- FlatShift (Nurse & Shift Worker Overtime Paycheck Calendar): https://a3152557994-ship-it.github.io/flatshift/
+- OPC Micro-Tools Hub (16 Browser-Local AI & Productivity Utilities): https://a3152557994-ship-it.github.io/opc-tools/

@@ -1,0 +1,17 @@
+{
+  "name": "FlatShift — Shift Work Calendar, Clock-In & Overtime Pay Calculator",
+  "short_name": "FlatShift",
+  "description": "Ad-free offline shift calendar and overtime paycheck calculator for nurses, healthcare staff, and hourly workers. 1-tap Nurse 3x12 & DuPont rotation painter, night differential math, dark mode, PDF timesheets, and $9.99 lifetime buyout.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F4F6FA",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
