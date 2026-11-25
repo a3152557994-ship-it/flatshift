@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A5E59D90293BD01F1C91878 /* app_res::Assets.xcassets */ = {isa = PBXBuildFile; fileRef = 099D7F6E0F4D37880F52A33B; };
+		15CDCA4711DA25CAAA5001E1 /* app_res::InfoPlist.strings */ = {isa = PBXBuildFile; fileRef = 77F02925E97CAFAB31E971E1; };
+		B721FF410C5D911B0ABDC94F /* app_res::PrivacyInfo.xcprivacy */ = {isa = PBXBuildFile; fileRef = 1923A6D31E34E1D439E1B893; };
+		08BB5F799EB02987679F401F /* app_src::Sources/FlatShiftApp.swift */ = {isa = PBXBuildFile; fileRef = 7F7FCCAAD3F8FFE44D7CCE12; };
+		6F782397FF01089E18A81AA0 /* app_src::Sources/Services/PDFTimesheetRenderer.swift */ = {isa = PBXBuildFile; fileRef = 1875C8443561471F3CB150F5; };
+		08C9286CC874B209B147EA0B /* app_src::Sources/Services/PayEngine.swift */ = {isa = PBXBuildFile; fileRef = E4B3F9BC10577B7C2D70F374; };
+		F61FF491B2958DD0B53BC3DE /* app_src::Sources/Services/ShiftStore.swift */ = {isa = PBXBuildFile; fileRef = A53BB62CE247E22D1C829BA2; };
+		AAE37CFC99619A7DA78E82E0 /* app_src::Sources/Services/StoreManager.swift */ = {isa = PBXBuildFile; fileRef = 788FDEC57FFEA5A7B195F8FE; };
+		DF094DE099B93A43854AC373 /* app_src::Sources/Shared/L10n.swift */ = {isa = PBXBuildFile; fileRef = 6CA140C81202AC2613726E19; };
+		9592A6D210D4C2B590894298 /* app_src::Sources/Shared/Models.swift */ = {isa = PBXBuildFile; fileRef = 5EE8C2053AFC32A4BF194528; };
+		8922F5E6500B76CA4AFE29AF /* app_src::Sources/Shared/Theme.swift */ = {isa = PBXBuildFile; fileRef = F82D51423D71533E051B3BC6; };
+		415174DE6FEE17ABC9EB0252 /* app_src::Sources/Views/CalendarTabView.swift */ = {isa = PBXBuildFile; fileRef = AF06757E60EBEDA35BCAA2AA; };
+		EC5EFB2AEEE1F6202E0BF87C /* app_src::Sources/Views/ClockHomeView.swift */ = {isa = PBXBuildFile; fileRef = D6A31EA933F804AFCC4D6916; };
+		ADFD35A3CB046821D1BC61C6 /* app_src::Sources/Views/JobsSettingsView.swift */ = {isa = PBXBuildFile; fileRef = D2661DAC90211115A8A4E799; };
+		F2CFD5834A937D128F218927 /* app_src::Sources/Views/MainTabView.swift */ = {isa = PBXBuildFile; fileRef = 35900F11DC1473AED5AC7131; };
+		EEE28E429F31F591BBB5A30F /* app_src::Sources/Views/PaycheckTabView.swift */ = {isa = PBXBuildFile; fileRef = 42BF8ACBB63BE91CAAC77CB4; };
+		DD027255693CBBC7CC7AD4DF /* app_src::Sources/Views/PaywallView.swift */ = {isa = PBXBuildFile; fileRef = 827862AA54C80A5F3A717DB9; };
+		539CFBC6F8EB540EBBFAE622 /* app_src::Sources/Views/RotationPainterSheet.swift */ = {isa = PBXBuildFile; fileRef = 8430A60205A04ABE07491A29; };
+		2B78D410817219380E329F60 /* app_src::Sources/Views/ShiftEditorSheet.swift */ = {isa = PBXBuildFile; fileRef = 8935DF9DE01E6C9B3E5B0BD5; };
+		9EFDEEB5AE6188F2E7198697 /* test_res::FlatShift.storekit */ = {isa = PBXBuildFile; fileRef = 439392E659D835BE85948846; };
+		B36760CF5CDDF347E4461E13 /* test_src::Tests/FlatShiftTests.swift */ = {isa = PBXBuildFile; fileRef = 7C9668E972F3F9C3EB0327DB; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A6EE7CDDFAC69DAE420E364 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2FEB5D7D33B7FAC7A66B363 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD51B647DA3933BB1867EAC6;
+			remoteInfo = FlatShift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B3F07EA9908978356A78A393 /* FlatShift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "FlatShift.entitlements"; path = "Config/FlatShift.entitlements"; sourceTree = "<group>"; };
+		439392E659D835BE85948846 /* FlatShift.storekit */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "FlatShift.storekit"; path = "Config/FlatShift.storekit"; sourceTree = "<group>"; };
+		1108258A3B01742B6818FAEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info.plist"; path = "Config/Info.plist"; sourceTree = "<group>"; };
+		099D7F6E0F4D37880F52A33B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets.xcassets"; path = "Resources/Assets.xcassets"; sourceTree = "<group>"; };
+		1923A6D31E34E1D439E1B893 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "PrivacyInfo.xcprivacy"; path = "Resources/PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
+		31BE8249B01343A0776E8611 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en"; path = "Resources/en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		06B7D91F93E5E4D7D2CD4865 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7F7FCCAAD3F8FFE44D7CCE12 /* FlatShiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlatShiftApp.swift"; path = "Sources/FlatShiftApp.swift"; sourceTree = "<group>"; };
+		1875C8443561471F3CB150F5 /* PDFTimesheetRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PDFTimesheetRenderer.swift"; path = "Sources/Services/PDFTimesheetRenderer.swift"; sourceTree = "<group>"; };
+		E4B3F9BC10577B7C2D70F374 /* PayEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PayEngine.swift"; path = "Sources/Services/PayEngine.swift"; sourceTree = "<group>"; };
+		A53BB62CE247E22D1C829BA2 /* ShiftStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ShiftStore.swift"; path = "Sources/Services/ShiftStore.swift"; sourceTree = "<group>"; };
+		788FDEC57FFEA5A7B195F8FE /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StoreManager.swift"; path = "Sources/Services/StoreManager.swift"; sourceTree = "<group>"; };
+		6CA140C81202AC2613726E19 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "L10n.swift"; path = "Sources/Shared/L10n.swift"; sourceTree = "<group>"; };
+		5EE8C2053AFC32A4BF194528 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Models.swift"; path = "Sources/Shared/Models.swift"; sourceTree = "<group>"; };
+		F82D51423D71533E051B3BC6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Theme.swift"; path = "Sources/Shared/Theme.swift"; sourceTree = "<group>"; };
+		AF06757E60EBEDA35BCAA2AA /* CalendarTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CalendarTabView.swift"; path = "Sources/Views/CalendarTabView.swift"; sourceTree = "<group>"; };
+		D6A31EA933F804AFCC4D6916 /* ClockHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ClockHomeView.swift"; path = "Sources/Views/ClockHomeView.swift"; sourceTree = "<group>"; };
+		D2661DAC90211115A8A4E799 /* JobsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "JobsSettingsView.swift"; path = "Sources/Views/JobsSettingsView.swift"; sourceTree = "<group>"; };
+		35900F11DC1473AED5AC7131 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainTabView.swift"; path = "Sources/Views/MainTabView.swift"; sourceTree = "<group>"; };
+		42BF8ACBB63BE91CAAC77CB4 /* PaycheckTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaycheckTabView.swift"; path = "Sources/Views/PaycheckTabView.swift"; sourceTree = "<group>"; };
+		827862AA54C80A5F3A717DB9 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaywallView.swift"; path = "Sources/Views/PaywallView.swift"; sourceTree = "<group>"; };
+		8430A60205A04ABE07491A29 /* RotationPainterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RotationPainterSheet.swift"; path = "Sources/Views/RotationPainterSheet.swift"; sourceTree = "<group>"; };
+		8935DF9DE01E6C9B3E5B0BD5 /* ShiftEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ShiftEditorSheet.swift"; path = "Sources/Views/ShiftEditorSheet.swift"; sourceTree = "<group>"; };
+		7C9668E972F3F9C3EB0327DB /* FlatShiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlatShiftTests.swift"; path = "Tests/FlatShiftTests.swift"; sourceTree = "<group>"; };
+		FC3FCD30E35E89CEA4F3B134 /* FlatShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlatShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4EE1CE552BCFD9E3A8CC954 /* FlatShiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlatShiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC452E8CD2D6A5FF72CFFDA1 /* Frameworks (FlatShift) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F5BEB0AAE9E58884B808858 /* Frameworks (FlatShiftTests) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A52BE19C43547934579E68E8 = {
+			isa = PBXGroup;
+			children = (
+				E0FB4CEC635FAA67404D723C /* Sources */,
+				EDB6FBC42144D76C1B1062FC /* Tests */,
+				65C679776B6FEC4182306BDA /* Resources */,
+				434E29AB7D196E885E98239D /* Config */,
+				A3EA8B9163159FB98D714A54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E0FB4CEC635FAA67404D723C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7F7FCCAAD3F8FFE44D7CCE12,
+				1875C8443561471F3CB150F5,
+				E4B3F9BC10577B7C2D70F374,
+				A53BB62CE247E22D1C829BA2,
+				788FDEC57FFEA5A7B195F8FE,
+				6CA140C81202AC2613726E19,
+				5EE8C2053AFC32A4BF194528,
+				F82D51423D71533E051B3BC6,
+				AF06757E60EBEDA35BCAA2AA,
+				D6A31EA933F804AFCC4D6916,
+				D2661DAC90211115A8A4E799,
+				35900F11DC1473AED5AC7131,
+				42BF8ACBB63BE91CAAC77CB4,
+				827862AA54C80A5F3A717DB9,
+				8430A60205A04ABE07491A29,
+				8935DF9DE01E6C9B3E5B0BD5,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		EDB6FBC42144D76C1B1062FC /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7C9668E972F3F9C3EB0327DB,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		65C679776B6FEC4182306BDA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				099D7F6E0F4D37880F52A33B,
+				1923A6D31E34E1D439E1B893,
+				77F02925E97CAFAB31E971E1,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		434E29AB7D196E885E98239D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				1108258A3B01742B6818FAEB,
+				B3F07EA9908978356A78A393,
+				439392E659D835BE85948846,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		A3EA8B9163159FB98D714A54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC3FCD30E35E89CEA4F3B134,
+				A4EE1CE552BCFD9E3A8CC954,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BD51B647DA3933BB1867EAC6 /* FlatShift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79937CAA542283E7BF7FE92A;
+			buildPhases = (
+				6920BD3E147185E4EBC98FD1 /* Sources */,
+				EC452E8CD2D6A5FF72CFFDA1 /* Frameworks */,
+				AB578967E51744D5EBD7F3B1 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = FlatShift;
+			productName = FlatShift;
+			productReference = FC3FCD30E35E89CEA4F3B134;
+			productType = "com.apple.product-type.application";
+		};
+		736FC4F3F52FF2B97ED507F2 /* FlatShiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4D7348936BB6606D497039C;
+			buildPhases = (
+				B7EAC4EB1D0682192F41208C /* Sources */,
+				4F5BEB0AAE9E58884B808858 /* Frameworks */,
+				198FD839E38298A1A2EC0D0A /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (
+				8CBAE0A9BF354568688319B1 /* PBXTargetDependency */,
+			);
+			name = FlatShiftTests;
+			productName = FlatShiftTests;
+			productReference = A4EE1CE552BCFD9E3A8CC954;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2FEB5D7D33B7FAC7A66B363 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2720;
+				LastUpgradeCheck = 2720;
+				TargetAttributes = {
+					BD51B647DA3933BB1867EAC6 = { DevelopmentTeam = KU364788TC; ProvisioningStyle = Automatic; };
+					736FC4F3F52FF2B97ED507F2 = { DevelopmentTeam = KU364788TC; TestTargetID = BD51B647DA3933BB1867EAC6; };
+				};
+			};
+			buildConfigurationList = 5A500A79AECD6FFCB6DAAFD9;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, "zh-Hans", Base);
+			mainGroup = A52BE19C43547934579E68E8;
+			productRefGroup = A3EA8B9163159FB98D714A54;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD51B647DA3933BB1867EAC6 /* FlatShift */,
+				736FC4F3F52FF2B97ED507F2 /* FlatShiftTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB578967E51744D5EBD7F3B1 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A5E59D90293BD01F1C91878 /* app_res::Assets.xcassets */,
+				B721FF410C5D911B0ABDC94F /* app_res::PrivacyInfo.xcprivacy */,
+				15CDCA4711DA25CAAA5001E1 /* app_res::InfoPlist.strings */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		198FD839E38298A1A2EC0D0A = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EFDEEB5AE6188F2E7198697 /* test_res::FlatShift.storekit */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6920BD3E147185E4EBC98FD1 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08BB5F799EB02987679F401F /* Sources/FlatShiftApp.swift */,
+				6F782397FF01089E18A81AA0 /* Sources/Services/PDFTimesheetRenderer.swift */,
+				08C9286CC874B209B147EA0B /* Sources/Services/PayEngine.swift */,
+				F61FF491B2958DD0B53BC3DE /* Sources/Services/ShiftStore.swift */,
+				AAE37CFC99619A7DA78E82E0 /* Sources/Services/StoreManager.swift */,
+				DF094DE099B93A43854AC373 /* Sources/Shared/L10n.swift */,
+				9592A6D210D4C2B590894298 /* Sources/Shared/Models.swift */,
+				8922F5E6500B76CA4AFE29AF /* Sources/Shared/Theme.swift */,
+				415174DE6FEE17ABC9EB0252 /* Sources/Views/CalendarTabView.swift */,
+				EC5EFB2AEEE1F6202E0BF87C /* Sources/Views/ClockHomeView.swift */,
+				ADFD35A3CB046821D1BC61C6 /* Sources/Views/JobsSettingsView.swift */,
+				F2CFD5834A937D128F218927 /* Sources/Views/MainTabView.swift */,
+				EEE28E429F31F591BBB5A30F /* Sources/Views/PaycheckTabView.swift */,
+				DD027255693CBBC7CC7AD4DF /* Sources/Views/PaywallView.swift */,
+				539CFBC6F8EB540EBBFAE622 /* Sources/Views/RotationPainterSheet.swift */,
+				2B78D410817219380E329F60 /* Sources/Views/ShiftEditorSheet.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7EAC4EB1D0682192F41208C = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B36760CF5CDDF347E4461E13 /* Tests/FlatShiftTests.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CBAE0A9BF354568688319B1 = {isa = PBXTargetDependency; target = BD51B647DA3933BB1867EAC6; targetProxy = 5A6EE7CDDFAC69DAE420E364; };
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		77F02925E97CAFAB31E971E1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31BE8249B01343A0776E8611 /* en */,
+				06B7D91F93E5E4D7D2CD4865 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		443EE10320A4943757FD831A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KU364788TC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG";
+			};
+			name = Debug;
+		};
+		B06AEDDCEA48E99208EB34D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KU364788TC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB6978557761A23CEB6651AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Config/FlatShift.entitlements";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanghe.flatshift;
+				PRODUCT_NAME = FlatShift;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+			};
+			name = Debug;
+		};
+		AD678A5F100CD8DDA53B2FA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Config/FlatShift.entitlements";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanghe.flatshift;
+				PRODUCT_NAME = FlatShift;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "FlatShift AppStore Dist";
+			};
+			name = Release;
+		};
+		40D250A03AD27DC6B3E9503A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanghe.flatshift.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlatShift.app/FlatShift";
+			};
+			name = Debug;
+		};
+		B110097748EBFFA0E650138B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanghe.flatshift.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlatShift.app/FlatShift";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A500A79AECD6FFCB6DAAFD9 /* Build configuration list for PBXProject FlatShift */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				443EE10320A4943757FD831A /* Debug */,
+				B06AEDDCEA48E99208EB34D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79937CAA542283E7BF7FE92A /* Build configuration list for PBXNativeTarget FlatShift */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB6978557761A23CEB6651AC /* Debug */,
+				AD678A5F100CD8DDA53B2FA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4D7348936BB6606D497039C /* Build configuration list for PBXNativeTarget FlatShiftTests */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D250A03AD27DC6B3E9503A /* Debug */,
+				B110097748EBFFA0E650138B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2FEB5D7D33B7FAC7A66B363 /* Project object */;
+}

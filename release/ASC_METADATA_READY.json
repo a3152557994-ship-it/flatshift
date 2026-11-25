@@ -1,0 +1,28 @@
+{
+  "bundleId": "com.yanghe.flatshift",
+  "primaryCategory": "PRODUCTIVITY",
+  "secondaryCategory": "FINANCE",
+  "copyright": "© 2026 Yang He",
+  "urls": {
+    "privacy": "https://a3152557994-ship-it.github.io/flatshift/privacy.html",
+    "terms": "https://a3152557994-ship-it.github.io/flatshift/terms.html",
+    "support": "https://a3152557994-ship-it.github.io/flatshift/support.html",
+    "marketing": "https://a3152557994-ship-it.github.io/flatshift/"
+  },
+  "localizations": {
+    "en-US": {
+      "name": "FlatShift: Hours & Shift Pay",
+      "subtitle": "Overtime, Clock In & Schedule",
+      "promotionalText": "1-tap shift clock, color-coded rotation calendar, daily & weekly overtime, night differentials, and PDF timesheets. 100% offline, zero ads, and an honest $9.99 Lifetime option.",
+      "keywords": "hours tracker,shift calendar,overtime calculator,time clock,paycheck,nurse,work schedule,timesheet",
+      "description": "FlatShift is a fast, 100% offline shift work calendar, live clock-in timer, and overtime paycheck calculator built for nurses, healthcare workers, tradespeople, warehouse crews, hospitality staff, and hourly professionals who want exact take-home pay verification without ads or $40+ yearly shift app subscriptions.\n\nBUILT FOR REAL SHIFT WORKERS:\n• Accurate Daily & Weekly Overtime + Differentials: Configure custom daily overtime (>8h at 1.5x, >12h at 2.0x), weekly overtime (>40h/wk without double-counting), night shift differentials (+$/hr), weekend bonuses, holiday multipliers, unpaid break deductions, and estimated tax withholding to see both Gross Pay and Estimated Net Take-Home Pay to the exact cent.\n• 1-Tap Live Shift Clock-In & Quick Break Toggle: Clock in with a single tap, watch your live shift timer and real-time earnings tick up, toggle a 30-minute unpaid break or Night Differential on the fly, and clock out straight into your pay period ledger.\n• Color-Coded Shift Calendar & 1-Tap Rotation Painter: View DAY, NIGHT, SWING, OT, PTO, and OFF shifts with daily pay previews at a glance. Paint Nurse 3x12, DuPont 4-Week, 2-2-3 Panama, 4-On 4-Off, or Mon–Fri 8h rotations across upcoming weeks in one tap.\n• Night-Shift Friendly Dark Mode: Switch instantly between Crisp Day Mode and glare-free Midnight Dark Mode when checking your schedule at 3 AM.\n• Clean PDF Timesheets & CSV Payroll Export: Preview crisp US Letter PDF timesheets right inside the app, print or share via the native iOS Share Sheet, or export CSV spreadsheets for payroll verification.\n• Multi-Job & 24-Hour Military Time Support: Track your main hospital or job site alongside weekend side work with independent hourly rates, breaks, tax estimates, and local JSON backup & restore.\n\nHONEST PRICING — ZERO ADS FOREVER:\nStart free with unlimited clock-ins, color-coded shift calendar, 1-tap rotations for 1 job, and 2 free PDF timesheet exports every month—with zero ads and zero account sign-up.\nUpgrade anytime with:\n• FlatShift Pro Lifetime ($9.99 one-time): Pay once, own forever—unlimited jobs, unlimited PDF timesheets, CSV payroll exports, and clean reports with no footer branding.\n• FlatShift Pro Annual ($4.99/year with 3-day free trial) or Monthly ($1.49/month): Flexible auto-renewable plans you can cancel anytime in iOS Settings > Apple Account > Subscriptions.\n\nPrivacy Policy: https://a3152557994-ship-it.github.io/flatshift/privacy.html\nTerms of Use (EULA): https://a3152557994-ship-it.github.io/flatshift/terms.html"
+    },
+    "zh-Hans": {
+      "name": "FlatShift 倒班排班与加班算薪",
+      "subtitle": "一键打卡算加班费·夜班津贴与工资核对单",
+      "promotionalText": "100% 本地离线、永久零广告的倒班排班与工时算薪工具：支持日/周加班倍率、夜班与周末津贴、一键套用三班倒模板、夜班深色护眼模式与高清 PDF 工资核对单，支持低门槛一次买断。",
+      "keywords": "工时记录,倒班日历,排班表,加班费计算,时薪打卡,三班倒,护士排班,工资条,考勤,买断",
+      "description": "FlatShift 是一款专为医护三班倒、工厂轮班、建筑装修、餐饮零售及兼职时薪人群打造的 100% 本地离线倒班日历与加班算薪工具。免注册登录、永久零广告，告别动辄百元以上的年卡订阅。\n\n核心实用功能：\n• 精准加班倍率 + 夜班/周末津贴 + 税后到手估算：支持按日超 8 小时 1.5 倍、超 12 小时 2.0 倍、按周超 40 小时自动滚算加班（绝不重复计费），叠加夜班津贴、周末津贴、节假日倍率与无薪休息扣除，精准到分同时展示「税前应发」与「预估税后到手」。\n• 一键实时打卡与快捷扣休：首页超大打卡卡片支持实时计时、一键扣 30 分钟休息、一键开关夜班津贴，下班打卡瞬间写入本期工资台账；同步支持 24 小时制手动补录。\n• 彩色倒班日历与一键套用轮班：按白班、夜班、中班、加班、休假、休息自动分色展示每日班次与日薪预估；内置护士 3×12、杜邦四周倒班、2-2-3 巴拿马轮班、做四休四、标准双休模板，一键批量排满未来数周。\n• 夜班护眼深色模式：右上角一键切换午夜蓝深色护眼模式，凌晨查排班绝不刺眼。\n• 高清 PDF 工资核对单与 CSV 考勤导出：应用内实时矢量预览标准排班算薪 PDF，支持系统一键分享给微信/文件/打印机，或导出 CSV 明细表用于发薪日逐笔核对。\n• 多份工作与本地 JSON 备份：主业倒班与周末副业独立设置时薪、加班规则与预估扣税比例，支持随时导出本地 JSON 全量备份与一键恢复。\n\n透明定价（永久无广告）：\n免费下载即可享受零广告、1 份工作无限打卡与倒班日历、每月 2 次免费 PDF 工资单导出。\n如需解锁无限多份工作、无限 PDF 工资核对单与 CSV 导出，可选：\n• 永久买断版（¥38 一次付清，终身拥有无续费）\n• 年度会员（¥18/年，含 3 天免费试用，续费前 24 小时主动提醒）或月度会员（¥6/月），可随时在 iPhone「设置 > Apple 账户 > 订阅」取消。\n\n隐私政策：https://a3152557994-ship-it.github.io/flatshift/privacy.html\n使用条款：https://a3152557994-ship-it.github.io/flatshift/terms.html"
+    }
+  }
+}

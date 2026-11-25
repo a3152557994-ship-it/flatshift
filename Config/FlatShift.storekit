@@ -1,0 +1,129 @@
+{
+  "identifier" : "F1A75F17-1000-4000-8000-000000000001",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : true,
+      "internalID" : "FS_LIFE_001",
+      "localizations" : [
+        {
+          "description" : "Pay once, own forever. Unlimited jobs, unlimited PDF & CSV timesheet exports, all shift rotations, and full offline backups.",
+          "displayName" : "FlatShift Pro Lifetime",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "一次买断终身拥有：无限多份工作、无限导出PDF工资核对单与CSV考勤表、全部倒班模板与本地全量备份。",
+          "displayName" : "FlatShift 永久买断版",
+          "locale" : "zh_CN"
+        }
+      ],
+      "productID" : "com.yanghe.flatshift.pro.lifetime",
+      "referenceName" : "FlatShift Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "9999999998",
+    "_developerTeamID" : "KU364788TC",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "FS_SG_001",
+      "localizations" : [
+        {
+          "customAppName" : "FlatShift",
+          "description" : "Unlimited jobs, unlimited PDF & CSV timesheet exports, and full shift pay analytics.",
+          "displayName" : "FlatShift Pro",
+          "locale" : "en_US"
+        },
+        {
+          "customAppName" : "FlatShift倒班算薪",
+          "description" : "无限多份工作管理、无限导出PDF与CSV考勤工资核对单。",
+          "displayName" : "FlatShift Pro 会员",
+          "locale" : "zh_CN"
+        }
+      ],
+      "name" : "FlatShift Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "FS_YEAR_001",
+          "introductoryOffer" : {
+            "internalID" : "FS_TRIAL_3D",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "3-day free trial, then annual unlimited jobs, PDF timesheets, CSV exports & rotation tools.",
+              "displayName" : "FlatShift Pro Annual",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "含3天免费试用，全年无限多份工作、无限导出PDF与CSV考勤工资单。",
+              "displayName" : "FlatShift Pro 年度版",
+              "locale" : "zh_CN"
+            }
+          ],
+          "productID" : "com.yanghe.flatshift.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "FlatShift Pro Annual",
+          "subscriptionGroupID" : "FS_SG_001",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "1.49",
+          "familyShareable" : true,
+          "groupNumber" : 2,
+          "internalID" : "FS_MONTH_001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Monthly unlimited jobs, PDF timesheets, CSV payroll exports & offline backups.",
+              "displayName" : "FlatShift Pro Monthly",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "按月解锁无限多份工作、无限导出PDF工资核对单与CSV表格。",
+              "displayName" : "FlatShift Pro 月度版",
+              "locale" : "zh_CN"
+            }
+          ],
+          "productID" : "com.yanghe.flatshift.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "FlatShift Pro Monthly",
+          "subscriptionGroupID" : "FS_SG_001",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlatShift — Shift Calendar, Live Clock-In & Overtime Paycheck Calculator ($9.99 Once)</title>
+  <style>
+    :root { --bg:#F4F6FA; --indigo:#131B2E; --cobalt:#2563EB; --mint:#10B981; --amber:#F59E0B; --violet:#7C3AED; --muted:#5B6B82; --border:#E2E8F0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif; background:var(--bg); color:var(--indigo); line-height:1.55; }
+    .wrap { max-width:960px; margin:0 auto; padding:28px 20px 64px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:34px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--indigo); }
+    .brand img { width:48px; height:48px; border-radius:12px; box-shadow:0 6px 18px rgba(19,27,46,.18); }
+    .brand strong { font-size:20px; letter-spacing:-.3px; }
+    .nav { display:flex; gap:18px; font-size:14px; }
+    .nav a { color:var(--muted); text-decoration:none; font-weight:600; }
+    .nav a:hover { color:var(--cobalt); }
+    .hero { background:linear-gradient(135deg,#131B2E,#1C2948); color:#fff; border-radius:24px; padding:42px 28px; text-align:center; margin-bottom:28px; }
+    .pill { display:inline-block; background:rgba(37,99,235,.28); color:#93C5FD; font-size:12px; font-weight:800; letter-spacing:.8px; padding:6px 14px; border-radius:999px; margin-bottom:16px; text-transform:uppercase; }
+    h1 { font-size:clamp(28px,5vw,44px); line-height:1.15; letter-spacing:-.6px; margin-bottom:14px; }
+    .hero p { color:rgba(255,255,255,.82); max-width:650px; margin:0 auto 24px; font-size:16px; }
+    .compare { display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:580px; margin:0 auto 26px; }
+    .cbox { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:16px; text-align:left; }
+    .cbox.win { background:rgba(37,99,235,.28); border-color:var(--amber); }
+    .cbox small { display:block; font-size:12px; color:rgba(255,255,255,.68); margin-bottom:4px; }
+    .cbox b { font-size:22px; font-variant-numeric:tabular-nums; }
+    .strike { text-decoration:line-through; text-decoration-color:#EF4444; opacity:.78; }
+    .cta { display:inline-block; background:var(--cobalt); color:#fff; text-decoration:none; font-weight:800; padding:14px 28px; border-radius:14px; font-size:16px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:28px 0; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:18px; padding:22px; }
+    .card h3 { font-size:17px; margin-bottom:8px; }
+    .card p { font-size:14px; color:var(--muted); }
+    .calc { background:#fff; border:1px solid var(--border); border-radius:20px; padding:26px; margin-top:24px; }
+    .calc h2 { font-size:20px; margin-bottom:6px; }
+    .calc .sub { font-size:14px; color:var(--muted); margin-bottom:18px; }
+    .inputs { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:18px; }
+    label { display:block; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:5px; }
+    input { padding:10px 12px; border:1px solid var(--border); border-radius:10px; font-size:15px; width:100%; font-variant-numeric:tabular-nums; }
+    .results { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; background:var(--indigo); color:#fff; border-radius:16px; padding:18px; }
+    .rbox small { display:block; font-size:11px; color:rgba(255,255,255,.68); text-transform:uppercase; font-weight:700; }
+    .rbox strong { font-size:22px; font-variant-numeric:tabular-nums; }
+    footer { margin-top:42px; text-align:center; font-size:13px; color:var(--muted); }
+    footer a { color:var(--indigo); margin:0 10px; }
+    @media (max-width:600px){ .compare{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./">
+        <img src="icon.png" alt="FlatShift Icon" />
+        <div>
+          <strong>FlatShift</strong>
+          <div style="font-size:12px;color:var(--muted)">Shift Calendar, Clock-In &amp; Overtime Pay</div>
+        </div>
+      </a>
+      <nav class="nav">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="pill">100% Offline • Zero Ads • Night-Shift Dark Mode</div>
+      <h1>Know Every Cent of Your Overtime &amp; Night Differential Before Payday.</h1>
+      <p>Built for nurses, healthcare staff, construction crews, warehouse teams, and hourly workers who want a clean shift calendar, 1-tap clock-in, and printable PDF timesheets—without $40–$50/yr shift app subscriptions.</p>
+      <div class="compare">
+        <div class="cbox">
+          <small>Typical Shift &amp; Hours Apps</small>
+          <b class="strike">$30–$50+ / yr</b>
+          <div style="font-size:12px;color:rgba(255,255,255,.65);margin-top:4px">Recurring subscriptions, ads &amp; clunky exports</div>
+        </div>
+        <div class="cbox win">
+          <small style="color:#F59E0B">FlatShift Lifetime Pro</small>
+          <b>$9.99 Once</b>
+          <div style="font-size:12px;color:rgba(255,255,255,.88);margin-top:4px">Free 1 job &amp; 2 PDFs/mo • Own forever</div>
+        </div>
+      </div>
+      <a class="cta" href="https://apps.apple.com/us/developer/id1854695031">Get FlatShift on the App Store</a>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>⏱️ 1-Tap Live Shift Clock</h3>
+        <p>Tap once to clock in, toggle a 30-minute unpaid break or Night Differential mid-shift, and save directly into your pay period with penny-accurate math.</p>
+      </div>
+      <div class="card">
+        <h3>🗓️ 1-Tap Rotation Painter</h3>
+        <p>Color-coded DAY, NIGHT, SWING, OT, PTO, and OFF pills with daily earnings. Paint Nurse 3×12, DuPont 4-Week, 2-2-3 Panama, or 4-On 4-Off rosters in seconds.</p>
+      </div>
+      <div class="card">
+        <h3>🌙 True Night-Shift Dark Mode</h3>
+        <p>Checking your roster at 3 AM? Flip into glare-free Midnight Dark Mode with one tap right from the calendar header.</p>
+      </div>
+      <div class="card">
+        <h3>📄 Native PDF &amp; CSV Timesheets</h3>
+        <p>Preview clean US Letter paycheck verification PDFs right in the app, print, share natively, or export payroll-ready CSV spreadsheets.</p>
+      </div>
+    </section>
+
+    <section class="calc">
+      <h2>Live Overtime &amp; Shift Differential Paycheck Calculator</h2>
+      <p class="sub">Test FlatShift's penny-accurate math right in your browser (supports daily OT >8h @ 1.5x, double-time >12h @ 2.0x, unpaid break, night differential &amp; tax withholding).</p>
+      <div class="inputs">
+        <div>
+          <label for="rate">Base Hourly Rate ($)</label>
+          <input id="rate" type="number" value="44" min="0" step="0.5" oninput="calc()" />
+        </div>
+        <div>
+          <label for="hrs">Shift Length on Clock (hrs)</label>
+          <input id="hrs" type="number" value="13" min="0" step="0.5" oninput="calc()" />
+        </div>
+        <div>
+          <label for="brk">Unpaid Break (min)</label>
+          <input id="brk" type="number" value="30" min="0" step="15" oninput="calc()" />
+        </div>
+        <div>
+          <label for="diff">Night Differential (+$/hr)</label>
+          <input id="diff" type="number" value="4.50" min="0" step="0.25" oninput="calc()" />
+        </div>
+        <div>
+          <label for="shifts">Shifts per Pay Period</label>
+          <input id="shifts" type="number" value="6" min="1" step="1" oninput="calc()" />
+        </div>
+        <div>
+          <label for="tax">Est. Tax Withholding (%)</label>
+          <input id="tax" type="number" value="22" min="0" max="60" step="1" oninput="calc()" />
+        </div>
+      </div>
+      <div class="results">
+        <div class="rbox"><small>Paid Hours</small><strong id="oHrs">75.00 h</strong></div>
+        <div class="rbox"><small>OT + Diff Bonus</small><strong id="oBonus" style="color:var(--amber)">$2,185.50</strong></div>
+        <div class="rbox"><small>Gross Pay</small><strong id="oGross">$4,297.50</strong></div>
+        <div class="rbox"><small>Est. Net Take-Home</small><strong id="oNet" style="color:var(--mint)">$3,352.05</strong></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Yang He · FlatShift Hours &amp; Shift Pay</p>
+      <p style="margin-top:8px">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="support.html">Support</a>
+      </p>
+    </footer>
+  </div>
+  <script>
+    function rc(v){ return Math.round((v * 100) + 1e-9) / 100; }
+    function fmt(v){ return "$" + rc(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function calc(){
+      const rate = Math.max(0, parseFloat(document.getElementById("rate").value)||0);
+      const clockHrs = Math.max(0, parseFloat(document.getElementById("hrs").value)||0);
+      const brk = Math.max(0, parseFloat(document.getElementById("brk").value)||0);
+      const diff = Math.max(0, parseFloat(document.getElementById("diff").value)||0);
+      const count = Math.max(1, parseInt(document.getElementById("shifts").value)||1);
+      const taxPct = Math.max(0, parseFloat(document.getElementById("tax").value)||0);
+
+      const paidH = Math.max(0, clockHrs - brk / 60.0);
+      const dtH = paidH > 12 ? paidH - 12 : 0;
+      const underDT = paidH - dtH;
+      const otH = underDT > 8 ? underDT - 8 : 0;
+      const regH = underDT - otH;
+
+      const regPay = rc(regH * rate) * count;
+      const otPay = rc(otH * rate * 1.5) * count;
+      const dtPay = rc(dtH * rate * 2.0) * count;
+      const diffPay = rc(paidH * diff) * count;
+      const gross = rc(regPay + otPay + dtPay + diffPay);
+      const tax = rc(gross * (taxPct / 100));
+      const net = rc(gross - tax);
+
+      document.getElementById("oHrs").textContent = (paidH * count).toFixed(2) + " h";
+      document.getElementById("oBonus").textContent = fmt(otPay + dtPay + diffPay);
+      document.getElementById("oGross").textContent = fmt(gross);
+      document.getElementById("oNet").textContent = fmt(net);
+    }
+    calc();
+  </script>
+</body>
+</html>
