@@ -10,9 +10,9 @@ enum AppearanceMode: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .system: return L10n.t("Auto", "跟随系统")
-        case .light: return L10n.t("Day", "日间")
-        case .nightDark: return L10n.t("Night Shift", "夜班护眼")
+        case .system: return L10n.t("Auto", "跟随系统", "跟隨系統")
+        case .light: return L10n.t("Day", "日间", "日間")
+        case .nightDark: return L10n.t("Night Shift", "夜班护眼", "夜班護眼")
         }
     }
 

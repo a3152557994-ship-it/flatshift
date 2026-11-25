@@ -1,8 +1,12 @@
+import StoreKit
 import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject private var shiftStore: ShiftStore
     @EnvironmentObject private var store: StoreManager
+    @EnvironmentObject private var reviewManager: ReviewPromptManager
+    @Environment(\.requestReview) private var requestReview
+    @Environment(\.openURL) private var openURL
 
     @State private var selectedTab: Int
     @State private var showPaywall: Bool = false
@@ -10,6 +14,9 @@ struct MainTabView: View {
     @State private var paywallFallbackLabel: String? = nil
     @State private var paywallFallbackAction: (() -> Void)? = nil
     @State private var didApplyLaunchDemo = false
+    @State private var showOnboarding: Bool = false
+
+    private let onboardingCompletedKey = "flatshift.onboarding.completed.v1"
 
     init() {
         let args = ProcessInfo.processInfo.arguments
@@ -31,7 +38,7 @@ struct MainTabView: View {
                 openPaywall(message: msg)
             })
             .tabItem {
-                Label(L10n.t("Clock & Pay", "打卡算薪"), systemImage: "clock.badge.checkmark.fill")
+                Label(L10n.t("Clock & Pay", "打卡算薪", "打卡算薪"), systemImage: "clock.badge.checkmark.fill")
             }
             .tag(0)
 
@@ -39,7 +46,7 @@ struct MainTabView: View {
                 openPaywall(message: msg)
             })
             .tabItem {
-                Label(L10n.t("Calendar", "倒班日历"), systemImage: "calendar")
+                Label(L10n.t("Calendar", "倒班日历", "排班更表"), systemImage: "calendar")
             }
             .tag(1)
 
@@ -47,7 +54,7 @@ struct MainTabView: View {
                 openPaywall(message: msg, fallbackLabel: fallbackLabel, fallbackAction: fallbackAction)
             })
             .tabItem {
-                Label(L10n.t("Paycheck", "工资单"), systemImage: "doc.text.magnifyingglass")
+                Label(L10n.t("Paycheck", "工资单", "薪資單"), systemImage: "doc.text.magnifyingglass")
             }
             .tag(2)
 
@@ -55,7 +62,7 @@ struct MainTabView: View {
                 openPaywall(message: msg)
             })
             .tabItem {
-                Label(L10n.t("Jobs & Settings", "工作设置"), systemImage: "briefcase.fill")
+                Label(L10n.t("Jobs & Settings", "工作设置", "工作設定"), systemImage: "briefcase.fill")
             }
             .tag(3)
         }
@@ -67,8 +74,47 @@ struct MainTabView: View {
                 onFreeFallback: paywallFallbackAction
             )
         }
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView { openPaywallAfter in
+                UserDefaults.standard.set(true, forKey: onboardingCompletedKey)
+                showOnboarding = false
+                if openPaywallAfter {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        openPaywall(
+                            message: nil,
+                            fallbackLabel: L10n.t("Continue Free (Zero Ads)", "继续免费使用（零广告）", "繼續免費使用（零廣告）"),
+                            fallbackAction: nil
+                        )
+                    }
+                }
+            }
+        }
+        .alert(
+            L10n.t("Enjoying FlatShift?", "喜欢 FlatShift 倒班算薪吗？", "喜歡 FlatShift 更表算薪嗎？"),
+            isPresented: $reviewManager.isShowingPrompt
+        ) {
+            Button(L10n.t("Yes, love it!", "好用，给个好评！", "好用，給予好評！")) {
+                reviewManager.markPositiveRatingTapped()
+                requestReview()
+            }
+            Button(L10n.t("Send Feedback", "提建议 / 反馈问题", "傳送意見回饋")) {
+                reviewManager.markFeedbackTapped()
+                openURL(ReviewPromptManager.feedbackMailtoURL)
+            }
+            Button(L10n.t("Not Now", "暂不", "稍後再說"), role: .cancel) {
+                reviewManager.dismissPrompt()
+            }
+        } message: {
+            Text(
+                L10n.t(
+                    "FlatShift is 100% offline with zero ads — built by an indie developer for shift workers. A quick rating helps others find it!",
+                    "FlatShift 坚持 100% 本地离线与零广告。如果您觉得好用，欢迎给个简短评分支持独立开发！",
+                    "FlatShift 堅持 100% 本機離線與零廣告。如果您覺得好用，歡迎給予好評支持獨立開發者！"
+                )
+            )
+        }
         .onAppear {
-            applyDemoScreenIfNeeded()
+            applyLaunchFlowIfNeeded()
         }
     }
 
@@ -83,19 +129,28 @@ struct MainTabView: View {
         showPaywall = true
     }
 
-    private func applyDemoScreenIfNeeded() {
+    private func applyLaunchFlowIfNeeded() {
         guard !didApplyLaunchDemo else { return }
         didApplyLaunchDemo = true
+
         let args = ProcessInfo.processInfo.arguments
-        guard let idx = args.firstIndex(of: "-ui_demo_screen"), idx + 1 < args.count else { return }
-        if args[idx + 1] == "paywall" {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
-                openPaywall(
-                    message: nil,
-                    fallbackLabel: L10n.t("Continue with Free Plan (2 PDFs/mo)", "继续使用免费版（每月2张PDF）"),
-                    fallbackAction: {}
-                )
+        if let idx = args.firstIndex(of: "-ui_demo_screen"), idx + 1 < args.count {
+            // Skip onboarding in screenshot/demo automation
+            if args[idx + 1] == "paywall" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    openPaywall(
+                        message: nil,
+                        fallbackLabel: L10n.t("Continue Free (Zero Ads)", "继续免费使用（永久零广告）", "繼續免費使用（永久零廣告）"),
+                        fallbackAction: {}
+                    )
+                }
             }
+            return
+        }
+
+        // Day-0 30-second onboarding shown once on first launch
+        if !UserDefaults.standard.bool(forKey: onboardingCompletedKey) {
+            showOnboarding = true
         }
     }
 }

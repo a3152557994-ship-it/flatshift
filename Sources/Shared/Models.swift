@@ -13,23 +13,23 @@ enum ShiftType: String, Codable, CaseIterable, Identifiable {
 
     var shortBadge: String {
         switch self {
-        case .day: return L10n.t("DAY", "白班")
-        case .night: return L10n.t("NIGHT", "夜班")
-        case .swing: return L10n.t("SWING", "中班")
-        case .overtime: return L10n.t("OT", "加班")
-        case .pto: return L10n.t("PTO", "带薪假")
-        case .off: return L10n.t("OFF", "休")
+        case .day: return L10n.t("DAY", "白班", "早班")
+        case .night: return L10n.t("NIGHT", "夜班", "夜班")
+        case .swing: return L10n.t("SWING", "中班", "中班")
+        case .overtime: return L10n.t("OT", "加班", "加班")
+        case .pto: return L10n.t("PTO", "带薪假", "有薪假")
+        case .off: return L10n.t("OFF", "休", "休")
         }
     }
 
     var fullName: String {
         switch self {
-        case .day: return L10n.t("Day Shift", "白班")
-        case .night: return L10n.t("Night Shift", "夜班")
-        case .swing: return L10n.t("Swing Shift", "中班")
-        case .overtime: return L10n.t("Overtime Shift", "加班班次")
-        case .pto: return L10n.t("Paid Time Off", "带薪休假")
-        case .off: return L10n.t("Day Off", "休息日")
+        case .day: return L10n.t("Day Shift", "白班", "早班 / 日班")
+        case .night: return L10n.t("Night Shift", "夜班", "夜班 / 通宵更")
+        case .swing: return L10n.t("Swing Shift", "中班", "中班 / 下午更")
+        case .overtime: return L10n.t("Overtime Shift", "加班班次", "加班班次")
+        case .pto: return L10n.t("Paid Time Off", "带薪休假", "有薪年假")
+        case .off: return L10n.t("Day Off", "休息日", "例休日")
         }
     }
 
@@ -70,10 +70,10 @@ enum PayPeriodCycle: String, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .weekly: return L10n.t("Weekly", "每周")
-        case .biweekly: return L10n.t("Bi-Weekly", "双周")
-        case .semimonthly: return L10n.t("Semi-Monthly", "半月")
-        case .monthly: return L10n.t("Monthly", "每月")
+        case .weekly: return L10n.t("Weekly", "每周", "每週")
+        case .biweekly: return L10n.t("Bi-Weekly", "双周", "雙週")
+        case .semimonthly: return L10n.t("Semi-Monthly", "半月", "半月")
+        case .monthly: return L10n.t("Monthly", "每月", "每月")
         }
     }
 }
@@ -185,21 +185,21 @@ enum RotationPattern: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .nurse3x12: return L10n.t("Nurse 3×12 (3 On / 4 Off)", "护士 3×12 小时制（上3休4）")
-        case .dupont4Week: return L10n.t("DuPont 4-Week (12h Day/Night)", "杜邦四周倒班制（12h白/夜）")
-        case .panama223: return L10n.t("2-2-3 Panama (Pitman 12h)", "2-2-3 巴拿马轮班制（12h）")
-        case .fourOnFourOff: return L10n.t("4-On / 4-Off (Day & Night)", "做四休四倒班制（白/夜）")
-        case .monFri8h: return L10n.t("Mon–Fri Standard 8h", "标准周一至周五 8小时")
+        case .nurse3x12: return L10n.t("Nurse 3×12 (3 On / 4 Off)", "护士 3×12 小时制（上3休4）", "護理 3×12 小時制（上3休4）")
+        case .dupont4Week: return L10n.t("DuPont 4-Week (12h Day/Night)", "杜邦四周倒班制（12h白/夜）", "杜邦四週輪班制（12h日/夜）")
+        case .panama223: return L10n.t("2-2-3 Panama (Pitman 12h)", "2-2-3 巴拿马轮班制（12h）", "2-2-3 巴拿馬輪班制（12h）")
+        case .fourOnFourOff: return L10n.t("4-On / 4-Off (Day & Night)", "做四休四倒班制（白/夜）", "做四休四輪班制（日/夜）")
+        case .monFri8h: return L10n.t("Mon–Fri Standard 8h", "标准周一至周五 8小时", "標準週一至週五 8小時")
         }
     }
 
     var subtitle: String {
         switch self {
-        case .nurse3x12: return L10n.t("3 consecutive 12h shifts, 4 days recovery", "连续3天12小时班，连休4天")
-        case .dupont4Week: return L10n.t("4N·3O·3D·1O·3N·3O·4D·7O industrial cycle", "经典28天四班三倒工业循环，含7天长休")
-        case .panama223: return L10n.t("2 On · 2 Off · 3 On · 2 Off · 2 On · 3 Off", "14天双周轮换，隔周享完整长周末")
-        case .fourOnFourOff: return L10n.t("4 Day · 4 Off · 4 Night · 4 Off", "4白班·4休·4夜班·4休循环")
-        case .monFri8h: return L10n.t("5 weekday shifts + Sat/Sun off", "工作日白班，周末双休")
+        case .nurse3x12: return L10n.t("3 consecutive 12h shifts, 4 days recovery", "连续3天12小时班，连休4天", "連續3天12小時更，連休4天")
+        case .dupont4Week: return L10n.t("4N·3O·3D·1O·3N·3O·4D·7O industrial cycle", "经典28天四班三倒工业循环，含7天长休", "經典28天輪班循環，含7天長休")
+        case .panama223: return L10n.t("2 On · 2 Off · 3 On · 2 Off · 2 On · 3 Off", "14天双周轮换，隔周享完整长周末", "14天雙週輪換，隔週享完整長週末")
+        case .fourOnFourOff: return L10n.t("4 Day · 4 Off · 4 Night · 4 Off", "4白班·4休·4夜班·4休循环", "4早班·4休·4夜班·4休循環")
+        case .monFri8h: return L10n.t("5 weekday shifts + Sat/Sun off", "工作日白班，周末双休", "平日正常班，週末雙休")
         }
     }
 

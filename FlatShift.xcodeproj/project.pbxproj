@@ -11,8 +11,11 @@
 		15CDCA4711DA25CAAA5001E1 /* app_res::InfoPlist.strings */ = {isa = PBXBuildFile; fileRef = 77F02925E97CAFAB31E971E1; };
 		B721FF410C5D911B0ABDC94F /* app_res::PrivacyInfo.xcprivacy */ = {isa = PBXBuildFile; fileRef = 1923A6D31E34E1D439E1B893; };
 		08BB5F799EB02987679F401F /* app_src::Sources/FlatShiftApp.swift */ = {isa = PBXBuildFile; fileRef = 7F7FCCAAD3F8FFE44D7CCE12; };
+		5D6943FA83E3B95763CDE448 /* app_src::Sources/Services/FunnelMetrics.swift */ = {isa = PBXBuildFile; fileRef = 5528C3BA75580B4034E47D5C; };
 		6F782397FF01089E18A81AA0 /* app_src::Sources/Services/PDFTimesheetRenderer.swift */ = {isa = PBXBuildFile; fileRef = 1875C8443561471F3CB150F5; };
 		08C9286CC874B209B147EA0B /* app_src::Sources/Services/PayEngine.swift */ = {isa = PBXBuildFile; fileRef = E4B3F9BC10577B7C2D70F374; };
+		543A5A49EBF44A6E3E4D8B07 /* app_src::Sources/Services/ReviewPromptManager.swift */ = {isa = PBXBuildFile; fileRef = 8BD834AA9CC12473B7CE75CF; };
+		4FFE1B735C0E36E1A7329AAE /* app_src::Sources/Services/ScheduleImageRenderer.swift */ = {isa = PBXBuildFile; fileRef = C1C7331E7687CAF561165179; };
 		F61FF491B2958DD0B53BC3DE /* app_src::Sources/Services/ShiftStore.swift */ = {isa = PBXBuildFile; fileRef = A53BB62CE247E22D1C829BA2; };
 		AAE37CFC99619A7DA78E82E0 /* app_src::Sources/Services/StoreManager.swift */ = {isa = PBXBuildFile; fileRef = 788FDEC57FFEA5A7B195F8FE; };
 		DF094DE099B93A43854AC373 /* app_src::Sources/Shared/L10n.swift */ = {isa = PBXBuildFile; fileRef = 6CA140C81202AC2613726E19; };
@@ -22,6 +25,7 @@
 		EC5EFB2AEEE1F6202E0BF87C /* app_src::Sources/Views/ClockHomeView.swift */ = {isa = PBXBuildFile; fileRef = D6A31EA933F804AFCC4D6916; };
 		ADFD35A3CB046821D1BC61C6 /* app_src::Sources/Views/JobsSettingsView.swift */ = {isa = PBXBuildFile; fileRef = D2661DAC90211115A8A4E799; };
 		F2CFD5834A937D128F218927 /* app_src::Sources/Views/MainTabView.swift */ = {isa = PBXBuildFile; fileRef = 35900F11DC1473AED5AC7131; };
+		920E7F8BDDABCDE28659F43D /* app_src::Sources/Views/OnboardingView.swift */ = {isa = PBXBuildFile; fileRef = ACDD59F06DC62010994C95C4; };
 		EEE28E429F31F591BBB5A30F /* app_src::Sources/Views/PaycheckTabView.swift */ = {isa = PBXBuildFile; fileRef = 42BF8ACBB63BE91CAAC77CB4; };
 		DD027255693CBBC7CC7AD4DF /* app_src::Sources/Views/PaywallView.swift */ = {isa = PBXBuildFile; fileRef = 827862AA54C80A5F3A717DB9; };
 		539CFBC6F8EB540EBBFAE622 /* app_src::Sources/Views/RotationPainterSheet.swift */ = {isa = PBXBuildFile; fileRef = 8430A60205A04ABE07491A29; };
@@ -48,9 +52,13 @@
 		1923A6D31E34E1D439E1B893 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "PrivacyInfo.xcprivacy"; path = "Resources/PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
 		31BE8249B01343A0776E8611 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en"; path = "Resources/en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		06B7D91F93E5E4D7D2CD4865 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Resources/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		65C79C5F92DC0EBE6F5AE409 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Resources/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7F7FCCAAD3F8FFE44D7CCE12 /* FlatShiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlatShiftApp.swift"; path = "Sources/FlatShiftApp.swift"; sourceTree = "<group>"; };
+		5528C3BA75580B4034E47D5C /* FunnelMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FunnelMetrics.swift"; path = "Sources/Services/FunnelMetrics.swift"; sourceTree = "<group>"; };
 		1875C8443561471F3CB150F5 /* PDFTimesheetRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PDFTimesheetRenderer.swift"; path = "Sources/Services/PDFTimesheetRenderer.swift"; sourceTree = "<group>"; };
 		E4B3F9BC10577B7C2D70F374 /* PayEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PayEngine.swift"; path = "Sources/Services/PayEngine.swift"; sourceTree = "<group>"; };
+		8BD834AA9CC12473B7CE75CF /* ReviewPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReviewPromptManager.swift"; path = "Sources/Services/ReviewPromptManager.swift"; sourceTree = "<group>"; };
+		C1C7331E7687CAF561165179 /* ScheduleImageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ScheduleImageRenderer.swift"; path = "Sources/Services/ScheduleImageRenderer.swift"; sourceTree = "<group>"; };
 		A53BB62CE247E22D1C829BA2 /* ShiftStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ShiftStore.swift"; path = "Sources/Services/ShiftStore.swift"; sourceTree = "<group>"; };
 		788FDEC57FFEA5A7B195F8FE /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StoreManager.swift"; path = "Sources/Services/StoreManager.swift"; sourceTree = "<group>"; };
 		6CA140C81202AC2613726E19 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "L10n.swift"; path = "Sources/Shared/L10n.swift"; sourceTree = "<group>"; };
@@ -60,6 +68,7 @@
 		D6A31EA933F804AFCC4D6916 /* ClockHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ClockHomeView.swift"; path = "Sources/Views/ClockHomeView.swift"; sourceTree = "<group>"; };
 		D2661DAC90211115A8A4E799 /* JobsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "JobsSettingsView.swift"; path = "Sources/Views/JobsSettingsView.swift"; sourceTree = "<group>"; };
 		35900F11DC1473AED5AC7131 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainTabView.swift"; path = "Sources/Views/MainTabView.swift"; sourceTree = "<group>"; };
+		ACDD59F06DC62010994C95C4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "OnboardingView.swift"; path = "Sources/Views/OnboardingView.swift"; sourceTree = "<group>"; };
 		42BF8ACBB63BE91CAAC77CB4 /* PaycheckTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaycheckTabView.swift"; path = "Sources/Views/PaycheckTabView.swift"; sourceTree = "<group>"; };
 		827862AA54C80A5F3A717DB9 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaywallView.swift"; path = "Sources/Views/PaywallView.swift"; sourceTree = "<group>"; };
 		8430A60205A04ABE07491A29 /* RotationPainterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RotationPainterSheet.swift"; path = "Sources/Views/RotationPainterSheet.swift"; sourceTree = "<group>"; };
@@ -102,8 +111,11 @@
 			isa = PBXGroup;
 			children = (
 				7F7FCCAAD3F8FFE44D7CCE12,
+				5528C3BA75580B4034E47D5C,
 				1875C8443561471F3CB150F5,
 				E4B3F9BC10577B7C2D70F374,
+				8BD834AA9CC12473B7CE75CF,
+				C1C7331E7687CAF561165179,
 				A53BB62CE247E22D1C829BA2,
 				788FDEC57FFEA5A7B195F8FE,
 				6CA140C81202AC2613726E19,
@@ -113,6 +125,7 @@
 				D6A31EA933F804AFCC4D6916,
 				D2661DAC90211115A8A4E799,
 				35900F11DC1473AED5AC7131,
+				ACDD59F06DC62010994C95C4,
 				42BF8ACBB63BE91CAAC77CB4,
 				827862AA54C80A5F3A717DB9,
 				8430A60205A04ABE07491A29,
@@ -211,7 +224,7 @@
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (en, "zh-Hans", Base);
+			knownRegions = (en, "zh-Hans", "zh-Hant", Base);
 			mainGroup = A52BE19C43547934579E68E8;
 			productRefGroup = A3EA8B9163159FB98D714A54;
 			projectDirPath = "";
@@ -250,8 +263,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				08BB5F799EB02987679F401F /* Sources/FlatShiftApp.swift */,
+				5D6943FA83E3B95763CDE448 /* Sources/Services/FunnelMetrics.swift */,
 				6F782397FF01089E18A81AA0 /* Sources/Services/PDFTimesheetRenderer.swift */,
 				08C9286CC874B209B147EA0B /* Sources/Services/PayEngine.swift */,
+				543A5A49EBF44A6E3E4D8B07 /* Sources/Services/ReviewPromptManager.swift */,
+				4FFE1B735C0E36E1A7329AAE /* Sources/Services/ScheduleImageRenderer.swift */,
 				F61FF491B2958DD0B53BC3DE /* Sources/Services/ShiftStore.swift */,
 				AAE37CFC99619A7DA78E82E0 /* Sources/Services/StoreManager.swift */,
 				DF094DE099B93A43854AC373 /* Sources/Shared/L10n.swift */,
@@ -261,6 +277,7 @@
 				EC5EFB2AEEE1F6202E0BF87C /* Sources/Views/ClockHomeView.swift */,
 				ADFD35A3CB046821D1BC61C6 /* Sources/Views/JobsSettingsView.swift */,
 				F2CFD5834A937D128F218927 /* Sources/Views/MainTabView.swift */,
+				920E7F8BDDABCDE28659F43D /* Sources/Views/OnboardingView.swift */,
 				EEE28E429F31F591BBB5A30F /* Sources/Views/PaycheckTabView.swift */,
 				DD027255693CBBC7CC7AD4DF /* Sources/Views/PaywallView.swift */,
 				539CFBC6F8EB540EBBFAE622 /* Sources/Views/RotationPainterSheet.swift */,
@@ -288,6 +305,7 @@
 			children = (
 				31BE8249B01343A0776E8611 /* en */,
 				06B7D91F93E5E4D7D2CD4865 /* zh-Hans */,
+				65C79C5F92DC0EBE6F5AE409 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -305,8 +323,8 @@
 				DEVELOPMENT_TEAM = KU364788TC;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0.0;
-				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 2;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
@@ -330,8 +348,8 @@
 				DEVELOPMENT_TEAM = KU364788TC;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0.0;
-				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 2;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;

@@ -5,19 +5,29 @@
   ],
   "products" : [
     {
-      "displayPrice" : "9.99",
+      "displayPrice" : "12.99",
       "familyShareable" : true,
       "internalID" : "FS_LIFE_001",
       "localizations" : [
         {
-          "description" : "Pay once, own forever. Unlimited jobs, unlimited PDF & CSV timesheet exports, all shift rotations, and full offline backups.",
+          "description" : "Pay once, own forever. Unlimited jobs, full OT & differential breakdown, 52-week rotation painter, unlimited clean PDF & CSV exports, and offline backups.",
           "displayName" : "FlatShift Pro Lifetime",
           "locale" : "en_US"
         },
         {
-          "description" : "一次买断终身拥有：无限多份工作、无限导出PDF工资核对单与CSV考勤表、全部倒班模板与本地全量备份。",
+          "description" : "一次买断终身拥有：无限多份工作、完整加班与夜班津贴税后精算、全年一键倒班、无限高清 PDF 工资核对单与 CSV 表格导出。",
           "displayName" : "FlatShift 永久买断版",
           "locale" : "zh_CN"
+        },
+        {
+          "description" : "一次付清永久買斷：無限份工作、完整加班費試算與夜班津貼實領明細、全年一鍵排班、無限無浮水印 PDF 與 CSV 匯出。",
+          "displayName" : "FlatShift 永久買斷版",
+          "locale" : "zh_HK"
+        },
+        {
+          "description" : "一次付清永久買斷：無限份工作、完整加班費試算與夜班津貼實領明細、全年一鍵排班、無限無浮水印 PDF 與 CSV 匯出。",
+          "displayName" : "FlatShift 永久買斷版",
+          "locale" : "zh_TW"
         }
       ],
       "productID" : "com.yanghe.flatshift.pro.lifetime",
@@ -41,15 +51,27 @@
       "localizations" : [
         {
           "customAppName" : "FlatShift",
-          "description" : "Unlimited jobs, unlimited PDF & CSV timesheet exports, and full shift pay analytics.",
+          "description" : "Unlimited jobs, detailed OT & net pay breakdown, 52-week rotation painter, and unlimited clean PDF & CSV exports.",
           "displayName" : "FlatShift Pro",
           "locale" : "en_US"
         },
         {
           "customAppName" : "FlatShift倒班算薪",
-          "description" : "无限多份工作管理、无限导出PDF与CSV考勤工资核对单。",
+          "description" : "无限多份工作、加班与夜班津贴精算、全年倒班自动填充、无限导出 PDF 与 CSV 考勤工资单。",
           "displayName" : "FlatShift Pro 会员",
           "locale" : "zh_CN"
+        },
+        {
+          "customAppName" : "FlatShift更表",
+          "description" : "無限份工作、加班費試算與夜班津貼精算、全年排班更表自動填入、無限匯出 PDF 與 CSV 薪資單。",
+          "displayName" : "FlatShift Pro 會員",
+          "locale" : "zh_HK"
+        },
+        {
+          "customAppName" : "FlatShift更表",
+          "description" : "無限份工作、加班費試算與夜班津貼精算、全年排班表自動填入、無限匯出 PDF 與 CSV 薪資單。",
+          "displayName" : "FlatShift Pro 會員",
+          "locale" : "zh_TW"
         }
       ],
       "name" : "FlatShift Pro",
@@ -61,26 +83,36 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "4.99",
+          "displayPrice" : "7.99",
           "familyShareable" : true,
           "groupNumber" : 1,
           "internalID" : "FS_YEAR_001",
           "introductoryOffer" : {
-            "internalID" : "FS_TRIAL_3D",
+            "internalID" : "FS_TRIAL_7D",
             "numberOfPeriods" : 1,
             "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
+            "subscriptionPeriod" : "P7D"
           },
           "localizations" : [
             {
-              "description" : "3-day free trial, then annual unlimited jobs, PDF timesheets, CSV exports & rotation tools.",
+              "description" : "7-day free trial with Day-5 reminder, then annual unlimited jobs, full OT & net pay breakdown, 52-week rotations & clean PDF/CSV exports.",
               "displayName" : "FlatShift Pro Annual",
               "locale" : "en_US"
             },
             {
-              "description" : "含3天免费试用，全年无限多份工作、无限导出PDF与CSV考勤工资单。",
+              "description" : "含 7 天免费试用（第 5 天提醒），全年无限多份工作、加班与夜班津贴明细、无限导出 PDF 与 CSV。",
               "displayName" : "FlatShift Pro 年度版",
               "locale" : "zh_CN"
+            },
+            {
+              "description" : "含 7 天免費試用（第 5 天提醒），全年無限份工作、完整加班費試算與夜班津貼明細、無限匯出 PDF 與 CSV。",
+              "displayName" : "FlatShift Pro 年度方案",
+              "locale" : "zh_HK"
+            },
+            {
+              "description" : "含 7 天免費試用（第 5 天提醒），全年無限份工作、完整加班費試算與夜班津貼明細、無限匯出 PDF 與 CSV。",
+              "displayName" : "FlatShift Pro 年度方案",
+              "locale" : "zh_TW"
             }
           ],
           "productID" : "com.yanghe.flatshift.pro.yearly",
@@ -96,21 +128,31 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "1.49",
+          "displayPrice" : "3.99",
           "familyShareable" : true,
           "groupNumber" : 2,
           "internalID" : "FS_MONTH_001",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Monthly unlimited jobs, PDF timesheets, CSV payroll exports & offline backups.",
+              "description" : "Monthly unlimited jobs, detailed OT & net pay breakdown, clean PDF timesheets & CSV payroll exports.",
               "displayName" : "FlatShift Pro Monthly",
               "locale" : "en_US"
             },
             {
-              "description" : "按月解锁无限多份工作、无限导出PDF工资核对单与CSV表格。",
+              "description" : "按月解锁无限多份工作、加班与夜班津贴明细、无限导出高清 PDF 工资核对单与 CSV 表格。",
               "displayName" : "FlatShift Pro 月度版",
               "locale" : "zh_CN"
+            },
+            {
+              "description" : "按月解鎖無限份工作、加班費試算與夜班津貼明細、無限匯出高清 PDF 薪資單與 CSV 表格。",
+              "displayName" : "FlatShift Pro 月度方案",
+              "locale" : "zh_HK"
+            },
+            {
+              "description" : "按月解鎖無限份工作、加班費試算與夜班津貼明細、無限匯出高清 PDF 薪資單與 CSV 表格。",
+              "displayName" : "FlatShift Pro 月度方案",
+              "locale" : "zh_TW"
             }
           ],
           "productID" : "com.yanghe.flatshift.pro.monthly",

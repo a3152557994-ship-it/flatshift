@@ -1,4 +1,5 @@
 import PDFKit
+import UIKit
 import XCTest
 @testable import FlatShift
 
@@ -235,5 +236,219 @@ final class FlatShiftTests: XCTestCase {
             summary.totalGrossPay,
             accuracy: 0.0001
         )
+    }
+
+    // MARK: - v1.0.1 Upgrade Tests
+
+    func testTraditionalChineseLanguageDetectionAndThreeArgTranslation() {
+        let original = L10n.forcedLanguage
+        defer { L10n.forcedLanguage = original }
+
+        for code in ["zh-Hant", "zh-Hant-TW", "zh-Hant-HK", "zh-HK", "zh-TW", "zh-MO", "zh_Hant_HK"] {
+            XCTAssertEqual(L10n.resolveLanguage(from: code), .zhHant, "Expected .zhHant for \(code)")
+        }
+        for code in ["zh-Hans", "zh-CN", "zh-SG", "zh_Hans_CN"] {
+            XCTAssertEqual(L10n.resolveLanguage(from: code), .zhHans, "Expected .zhHans for \(code)")
+        }
+        for code in ["en", "en-US", "de-DE", "ja-JP"] {
+            XCTAssertEqual(L10n.resolveLanguage(from: code), .en, "Expected .en for \(code)")
+        }
+
+        L10n.forcedLanguage = "zh-HK"
+        XCTAssertTrue(L10n.isChinese)
+        XCTAssertTrue(L10n.isTraditionalChinese)
+        XCTAssertEqual(L10n.t("Schedule", "排班表", "排班更表"), "排班更表")
+        XCTAssertEqual(L10n.t("Overtime Calc", "加班费计算", "加班費試算"), "加班費試算")
+        XCTAssertEqual(L10n.t("Night Diff", "夜班津贴", "夜班津貼"), "夜班津貼")
+        XCTAssertEqual(L10n.t("Lifetime", "永久买断", "永久買斷"), "永久買斷")
+        // Backward compatibility of 2-arg t(_:_:)
+        XCTAssertEqual(L10n.t("Hello", "你好"), "你好")
+
+        L10n.forcedLanguage = "zh-Hans"
+        XCTAssertEqual(L10n.t("Lifetime", "永久买断", "永久買斷"), "永久买断")
+
+        L10n.forcedLanguage = "en-US"
+        XCTAssertEqual(L10n.t("Lifetime", "永久买断", "永久買斷"), "Lifetime")
+    }
+
+    func testStoreManagerLifetimeSinglePDFCapAndRotationLimit() {
+        let originalLang = L10n.forcedLanguage
+        defer { L10n.forcedLanguage = originalLang }
+        L10n.forcedLanguage = "en-US"
+
+        let suiteName = "flatshift.test.store.\(UUID().uuidString)"
+        let suite = UserDefaults(suiteName: suiteName)!
+        defer { suite.removePersistentDomain(forName: suiteName) }
+
+        let mgr = StoreManager(userDefaults: suite, startListeners: false)
+        XCTAssertFalse(mgr.isPro)
+        XCTAssertEqual(StoreManager.freeLifetimePDFExportLimit, 1)
+        XCTAssertEqual(StoreManager.freeRotationMaxWeeks, 2)
+        XCTAssertEqual(mgr.remainingFreePDFExports, 1)
+        XCTAssertTrue(mgr.canExportFreePDF)
+
+        // Rotation painter free cap: <= 2 weeks allowed, > 2 weeks requires Pro
+        XCTAssertTrue(mgr.canPaintRotation(weeks: 1))
+        XCTAssertTrue(mgr.canPaintRotation(weeks: 2))
+        XCTAssertFalse(mgr.canPaintRotation(weeks: 3))
+        XCTAssertFalse(mgr.canPaintRotation(weeks: 52))
+
+        // After 1st PDF export, lifetime free PDF cap is permanently exhausted for free tier
+        mgr.recordPDFExport()
+        XCTAssertEqual(mgr.remainingFreePDFExports, 0)
+        XCTAssertFalse(mgr.canExportFreePDF)
+
+        // Persists across fresh StoreManager instance
+        let reloaded = StoreManager(userDefaults: suite, startListeners: false)
+        XCTAssertEqual(reloaded.remainingFreePDFExports, 0)
+        XCTAssertFalse(reloaded.canExportFreePDF)
+
+        // Updated v1.0.1 fallback pricing & Day-5 trial reminder
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.lifetime), "$12.99")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.yearly), "$7.99")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.monthly), "$3.99")
+        XCTAssertEqual(StoreManager.trialReminderDelaySeconds, 5 * 24 * 3600, accuracy: 0.1)
+
+        L10n.forcedLanguage = "zh-Hant"
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.lifetime), "HK$78")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.yearly), "HK$48")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.monthly), "HK$18")
+
+        L10n.forcedLanguage = "zh-Hans"
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.lifetime), "¥48")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.yearly), "¥28")
+        XCTAssertEqual(mgr.displayPrice(for: FlatShiftProductID.monthly), "¥12")
+    }
+
+    func testScheduleImageRendererProducesValidPNG() {
+        let suiteName = "flatshift.test.schedimg.\(UUID().uuidString)"
+        let suite = UserDefaults(suiteName: suiteName)!
+        defer { suite.removePersistentDomain(forName: suiteName) }
+
+        let shiftStore = ShiftStore(userDefaults: suite)
+        let now = Date()
+
+        let pngWithBadge = ScheduleImageRenderer.renderMonthlySchedulePNG(
+            monthDate: now,
+            shifts: shiftStore.shifts,
+            jobs: shiftStore.jobs,
+            employeeName: "Alex Rivera, RN",
+            use24HourTime: true,
+            includeBrandingBadge: true,
+            darkTheme: false
+        )
+        XCTAssertNotNil(pngWithBadge)
+        guard let data = pngWithBadge else { return }
+        XCTAssertGreaterThan(data.count, 10_000, "Rendered monthly schedule PNG should be non-empty high-res output")
+        // Verify PNG magic header bytes: 89 50 4E 47
+        XCTAssertEqual(Array(data.prefix(4)), [0x89, 0x50, 0x4E, 0x47])
+
+        let decoded = UIImage(data: data)
+        XCTAssertNotNil(decoded)
+        XCTAssertEqual(decoded?.size.width ?? 0, ScheduleImageRenderer.canvasSize.width, accuracy: 1.0)
+        XCTAssertEqual(decoded?.size.height ?? 0, ScheduleImageRenderer.canvasSize.height, accuracy: 1.0)
+
+        let pngCleanPro = ScheduleImageRenderer.renderMonthlySchedulePNG(
+            monthDate: now,
+            shifts: shiftStore.shifts,
+            jobs: shiftStore.jobs,
+            employeeName: "Alex Rivera, RN",
+            use24HourTime: false,
+            includeBrandingBadge: false,
+            darkTheme: true
+        )
+        XCTAssertNotNil(pngCleanPro)
+        XCTAssertGreaterThan(pngCleanPro?.count ?? 0, 10_000)
+    }
+
+    func testRegionalPaywallStyleRouting() {
+        // Anglo ROI regions & default
+        for code in ["US", "CA", "AU", "NZ", "BR", "", nil] {
+            let style = PaywallRegionStyle.resolve(regionCode: code)
+            XCTAssertEqual(style, .angloROI, "Expected .angloROI for \(code ?? "nil")")
+            XCTAssertEqual(style.defaultSelectedProductID, FlatShiftProductID.yearly)
+        }
+
+        // EU Privacy + Lifetime regions
+        for code in ["DE", "CH", "AT", "GB", "FR", "NL", "SE", "NO", "DK", "FI", "IE", "IT", "ES"] {
+            let style = PaywallRegionStyle.resolve(regionCode: code)
+            XCTAssertEqual(style, .euPrivacyLifetime, "Expected .euPrivacyLifetime for \(code)")
+            XCTAssertEqual(style.defaultSelectedProductID, FlatShiftProductID.lifetime)
+        }
+
+        // East Asia High-Detail Trust regions
+        for code in ["JP", "KR", "TW", "HK", "MO", "SG"] {
+            let style = PaywallRegionStyle.resolve(regionCode: code)
+            XCTAssertEqual(style, .eastAsiaDetail, "Expected .eastAsiaDetail for \(code)")
+            XCTAssertEqual(style.defaultSelectedProductID, FlatShiftProductID.lifetime)
+        }
+    }
+
+    func testOnboardingSetupAndOTNetCalculation() {
+        let suiteName = "flatshift.test.onboarding.\(UUID().uuidString)"
+        let suite = UserDefaults(suiteName: suiteName)!
+        defer { suite.removePersistentDomain(forName: suiteName) }
+
+        let shiftStore = ShiftStore(userDefaults: suite)
+        shiftStore.applyOnboardingSetup(pattern: .nurse3x12, hourlyRate: 44.0, includeNightDiff: true)
+
+        XCTAssertEqual(shiftStore.jobs.count, 1)
+        XCTAssertEqual(shiftStore.shifts.count, 14)
+
+        let range = PayEngine.payPeriodRange(cycle: shiftStore.preferences.payPeriodCycle)
+        let summary = PayEngine.summarize(
+            shifts: shiftStore.shifts,
+            jobs: shiftStore.jobs,
+            periodStart: range.start,
+            periodEnd: range.end
+        )
+        XCTAssertEqual(summary.totalShiftsWorked, 6)
+        XCTAssertGreaterThan(summary.totalOvertimePay, 0)
+        XCTAssertGreaterThan(summary.totalDifferentialPay, 0)
+        XCTAssertGreaterThan(summary.estimatedNetPay, 0)
+        XCTAssertEqual(
+            PayEngine.roundCents(summary.estimatedTax + summary.estimatedNetPay),
+            summary.totalGrossPay,
+            accuracy: 0.0001
+        )
+    }
+
+    func testReviewPromptManagerHappyPathTriggersAndCooldown() {
+        let suiteName = "flatshift.test.review.\(UUID().uuidString)"
+        let suite = UserDefaults(suiteName: suiteName)!
+        defer { suite.removePersistentDomain(forName: suiteName) }
+
+        let metrics = FunnelMetrics(userDefaults: suite)
+        let manager = ReviewPromptManager(userDefaults: suite, metrics: metrics)
+
+        let day0 = Date(timeIntervalSince1970: 1_764_000_000)
+        XCTAssertFalse(manager.isShowingPrompt)
+
+        // 1st and 2nd logged shift should NOT prompt yet
+        manager.recordShiftLogged(now: day0)
+        manager.recordShiftLogged(now: day0)
+        XCTAssertFalse(manager.isShowingPrompt)
+        XCTAssertEqual(metrics.count(for: .shiftLogged), 2)
+
+        // 3rd logged shift triggers review prompt
+        manager.recordShiftLogged(now: day0)
+        XCTAssertTrue(manager.isShowingPrompt)
+        XCTAssertEqual(metrics.count(for: .reviewGateShown), 1)
+        manager.markPositiveRatingTapped()
+        XCTAssertFalse(manager.isShowingPrompt)
+        XCTAssertEqual(metrics.count(for: .reviewPositiveTapped), 1)
+
+        // Within 90-day cooldown: 1st schedule image share should NOT re-prompt
+        let day30 = day0.addingTimeInterval(30 * 86_400)
+        manager.recordScheduleImageShared(now: day30)
+        XCTAssertFalse(manager.isShowingPrompt)
+        XCTAssertEqual(metrics.count(for: .scheduleImageShared), 1)
+
+        // After 91 days: 1st PDF export triggers cleanly again
+        let day91 = day0.addingTimeInterval(91 * 86_400)
+        manager.recordPDFExported(now: day91)
+        XCTAssertTrue(manager.isShowingPrompt)
+        XCTAssertEqual(metrics.count(for: .pdfExported), 1)
+        XCTAssertEqual(metrics.count(for: .reviewGateShown), 2)
     }
 }

@@ -1,8 +1,10 @@
 import SwiftUI
+import UIKit
 
 struct CalendarTabView: View {
     @EnvironmentObject private var shiftStore: ShiftStore
     @EnvironmentObject private var store: StoreManager
+    @EnvironmentObject private var reviewManager: ReviewPromptManager
 
     var onOpenPaywall: (String?) -> Void
 
@@ -12,6 +14,11 @@ struct CalendarTabView: View {
     @State private var editingShift: ShiftEntry? = nil
     @State private var isNewShift: Bool = false
     @State private var bannerNote: String? = nil
+
+    // 1-Tap Viral Share Schedule Image
+    @State private var shareImageItem: UIImage? = nil
+    @State private var showScheduleShareSheet: Bool = false
+    @State private var proIncludeBadge: Bool = false
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -50,7 +57,7 @@ struct CalendarTabView: View {
     private var monthTitle: String {
         let df = DateFormatter()
         df.locale = L10n.locale
-        df.dateFormat = L10n.t("MMMM yyyy", "yyyy年M月")
+        df.dateFormat = L10n.t("MMMM yyyy", "yyyy年M月", "yyyy年M月")
         return df.string(from: displayedMonth)
     }
 
@@ -82,7 +89,7 @@ struct CalendarTabView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
-                    // MARK: - Month Header + Night-Shift Toggle + Rotation CTA
+                    // MARK: - Month Header
                     monthControlHeader
 
                     // MARK: - Monthly KPI Ribbon
@@ -108,6 +115,9 @@ struct CalendarTabView: View {
                     // MARK: - Legend Strip
                     legendStrip
 
+                    // MARK: - 1-Tap Viral Share Schedule Image CTA
+                    shareScheduleImageCard
+
                     // MARK: - Selected Day Detail Drawer
                     selectedDayDrawer
                 }
@@ -115,7 +125,7 @@ struct CalendarTabView: View {
                 .padding(.vertical, 10)
             }
             .background(ShiftTheme.canvas.ignoresSafeArea())
-            .navigationTitle(L10n.t("Shift Calendar", "倒班日历"))
+            .navigationTitle(L10n.t("Shift Calendar", "倒班日历", "排班更表"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -125,8 +135,12 @@ struct CalendarTabView: View {
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: shiftStore.preferences.appearanceMode == .nightDark ? "sun.max.fill" : "moon.stars.fill")
-                            Text(shiftStore.preferences.appearanceMode == .nightDark ? L10n.t("Day", "日间") : L10n.t("Night", "夜班深色"))
-                                .font(.caption.weight(.bold))
+                            Text(
+                                shiftStore.preferences.appearanceMode == .nightDark
+                                    ? L10n.t("Day", "日间", "日間")
+                                    : L10n.t("Night", "夜班深色", "夜班深色")
+                            )
+                            .font(.caption.weight(.bold))
                         }
                         .padding(.horizontal, 9)
                         .padding(.vertical, 5)
@@ -140,7 +154,7 @@ struct CalendarTabView: View {
                     Button {
                         showRotationSheet = true
                     } label: {
-                        Label(L10n.t("Rotations", "一键倒班"), systemImage: "wand.and.stars")
+                        Label(L10n.t("Rotations", "一键倒班", "一鍵排更"), systemImage: "wand.and.stars")
                             .font(.caption.weight(.bold))
                             .padding(.horizontal, 10)
                             .padding(.vertical, 6)
@@ -151,16 +165,38 @@ struct CalendarTabView: View {
                 }
             }
             .sheet(isPresented: $showRotationSheet) {
-                RotationPainterSheet { count in
-                    bannerNote = L10n.t("Painted \(count) rotation entries onto your calendar!", "已一键填入 \(count) 天倒班排班记录！")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) { bannerNote = nil }
-                }
+                RotationPainterSheet(
+                    onApplied: { count in
+                        FunnelMetrics.shared.record(.rotationPainted)
+                        bannerNote = L10n.t(
+                            "Painted \(count) rotation entries onto your calendar!",
+                            "已一键填入 \(count) 天倒班排班记录！",
+                            "已一鍵填入 \(count) 天輪班更表記錄！"
+                        )
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) { bannerNote = nil }
+                    },
+                    onRequestPaywall: { msg in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            onOpenPaywall(msg)
+                        }
+                    }
+                )
             }
             .sheet(item: $editingShift) { target in
-                ShiftEditorSheet(shift: target, isNew: isNewShift)
+                ShiftEditorSheet(shift: target, isNew: isNewShift) { _ in
+                    if isNewShift {
+                        reviewManager.recordShiftLogged()
+                    }
+                }
+            }
+            .sheet(isPresented: $showScheduleShareSheet, onDismiss: {
+                reviewManager.recordScheduleImageShared()
+            }) {
+                if let img = shareImageItem {
+                    ActivityShareSheet(items: [img])
+                }
             }
             .onAppear {
-                // Focus selected day onto a shift day in current month if today has none
                 let todayKey = cal.startOfDay(for: Date())
                 if breakdownsByDay[todayKey] == nil,
                    let firstWithShift = monthSummary.breakdowns.first(where: { $0.shift.shiftType.isPayable }) {
@@ -192,7 +228,7 @@ struct CalendarTabView: View {
                 Text(monthTitle)
                     .font(.headline.weight(.heavy))
                     .foregroundStyle(ShiftTheme.ink)
-                Text(L10n.t("Tap any day to inspect or edit shifts", "点击任意日期查看明细或补录班次"))
+                Text(L10n.t("Tap any day to inspect or edit shifts", "点击任意日期查看明细或补录班次", "點擊任意日期檢視明細或補錄更次"))
                     .font(.caption2)
                     .foregroundStyle(ShiftTheme.muted)
             }
@@ -218,17 +254,17 @@ struct CalendarTabView: View {
     private var monthlyKPIRibbon: some View {
         HStack(spacing: 8) {
             kpiCell(
-                label: L10n.t("SHIFTS", "出勤班次"),
+                label: L10n.t("SHIFTS", "出勤班次", "當月更數"),
                 value: "\(monthSummary.totalShiftsWorked)",
                 color: ShiftTheme.ink
             )
             kpiCell(
-                label: L10n.t("HOURS (OT)", "总工时(加班)"),
+                label: L10n.t("HOURS (OT)", "总工时(加班)", "總工時(加班)"),
                 value: "\(PayEngine.formatHours(monthSummary.totalHours)) (\(PayEngine.formatHours(monthSummary.totalOTCombinedHours)))",
                 color: ShiftTheme.overtimeAmber
             )
             kpiCell(
-                label: L10n.t("EST. GROSS", "本月预估应发"),
+                label: L10n.t("EST. GROSS", "本月预估应发", "本月預估總薪"),
                 value: PayEngine.formatMoney(monthSummary.totalGrossPay, symbol: monthSummary.currencySymbol),
                 color: ShiftTheme.shiftMint
             )
@@ -347,10 +383,65 @@ struct CalendarTabView: View {
         }
     }
 
+    // MARK: - 1-Tap Viral "Share Schedule Image" Card
+    private var shareScheduleImageCard: some View {
+        VStack(spacing: 8) {
+            Button {
+                shareSchedulePNG()
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "photo.on.rectangle.angled")
+                        .font(.subheadline.weight(.bold))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(L10n.t("Share Schedule Image", "一键生成并分享月度排班图", "一鍵分享本月排班更表圖"))
+                            .font(.subheadline.weight(.heavy))
+                        Text(L10n.t("Clean PNG grid for family & coworkers (no dollar amounts shown)", "高清排班卡片发给家人与同事（自动隐藏薪资金额）", "高清更表卡片傳給家人與同事（自動隱藏薪資金額）"))
+                            .font(.caption2)
+                            .opacity(0.86)
+                    }
+                    Spacer()
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.subheadline.weight(.bold))
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(ShiftTheme.midnightIndigo)
+                .foregroundStyle(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
+            .buttonStyle(.plain)
+
+            if store.isPro {
+                Toggle(isOn: $proIncludeBadge) {
+                    Text(L10n.t("Show subtle FlatShift badge on shared image", "分享图片底部保留 FlatShift 小标签", "分享圖片底部保留 FlatShift 小標示"))
+                        .font(.caption2)
+                        .foregroundStyle(ShiftTheme.muted)
+                }
+                .padding(.horizontal, 6)
+            }
+        }
+    }
+
+    private func shareSchedulePNG() {
+        let includeBadge = store.isPro ? proIncludeBadge : true
+        let image = ScheduleImageRenderer.renderMonthlyScheduleImage(
+            monthDate: displayedMonth,
+            shifts: shiftStore.shifts,
+            jobs: shiftStore.jobs,
+            employeeName: shiftStore.preferences.employeeName,
+            use24HourTime: shiftStore.preferences.use24HourTime,
+            includeBrandingBadge: includeBadge,
+            darkTheme: shiftStore.preferences.appearanceMode == .nightDark,
+            calendar: cal
+        )
+        shareImageItem = image
+        showScheduleShareSheet = true
+    }
+
     private var selectedDayDrawer: some View {
         let df = DateFormatter()
         df.locale = L10n.locale
-        df.dateFormat = L10n.t("EEEE, MMM d", "M月d日 EEEE")
+        df.dateFormat = L10n.t("EEEE, MMM d", "M月d日 EEEE", "M月d日 EEEE")
 
         return VStack(alignment: .leading, spacing: 10) {
             HStack {
@@ -361,7 +452,7 @@ struct CalendarTabView: View {
                 Button {
                     addShiftOnSelectedDay()
                 } label: {
-                    Label(L10n.t("Add Shift", "添加班次"), systemImage: "plus.circle.fill")
+                    Label(L10n.t("Add Shift", "添加班次", "新增更次"), systemImage: "plus.circle.fill")
                         .font(.caption.weight(.bold))
                         .foregroundStyle(ShiftTheme.cobalt)
                 }
@@ -369,7 +460,7 @@ struct CalendarTabView: View {
 
             if selectedDayBreakdowns.isEmpty {
                 HStack {
-                    Text(L10n.t("No shift scheduled on this date.", "当天暂无排班，可点击右上角添加。"))
+                    Text(L10n.t("No shift scheduled on this date.", "当天暂无排班，可点击右上角添加。", "當日暫無排班，可點右上角新增。"))
                         .font(.caption)
                         .foregroundStyle(ShiftTheme.muted)
                     Spacer()

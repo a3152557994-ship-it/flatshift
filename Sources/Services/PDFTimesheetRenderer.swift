@@ -57,10 +57,10 @@ enum PDFTimesheetRenderer {
                 line.stroke()
 
                 let left = includeBrandingFooter
-                    ? L10n.t("Generated offline with FlatShift · 100% Local Paycheck Verification", "由 FlatShift 本地离线生成 · 零广告零云端上传")
+                    ? L10n.t("Generated offline with FlatShift · 100% Local Paycheck Verification", "由 FlatShift 本地离线生成 · 零广告零云端上传", "由 FlatShift 本機離線產生 · 零廣告零雲端上傳")
                     : "\(jobTitle) · \(periodDF.string(from: summary.startDate)) – \(periodDF.string(from: summary.endDate))"
                 drawText(left, in: CGRect(x: margin, y: fy, width: contentW * 0.74, height: 14), font: .systemFont(ofSize: 8.5), color: mutedInk)
-                drawText(L10n.t("Page \(page)", "第 \(page) 页"), in: CGRect(x: margin + contentW * 0.74, y: fy, width: contentW * 0.26, height: 14), font: .systemFont(ofSize: 8.5), color: mutedInk, alignment: .right)
+                drawText(L10n.t("Page \(page)", "第 \(page) 页", "第 \(page) 頁"), in: CGRect(x: margin + contentW * 0.74, y: fy, width: contentW * 0.26, height: 14), font: .systemFont(ofSize: 8.5), color: mutedInk, alignment: .right)
             }
 
             beginNewPage()
@@ -73,7 +73,7 @@ enum PDFTimesheetRenderer {
             ctx.fill(CGRect(x: 0, y: headerH - 4, width: pageRect.width, height: 4))
 
             drawText(
-                L10n.t("TIMESHEET & PAYCHECK VERIFICATION", "工时排班与工资核对单"),
+                L10n.t("TIMESHEET & PAYCHECK VERIFICATION", "工时排班与工资核对单", "排班更表與薪資核對單"),
                 in: CGRect(x: margin, y: 20, width: contentW * 0.65, height: 22),
                 font: .systemFont(ofSize: 16, weight: .heavy),
                 color: .white
@@ -86,7 +86,7 @@ enum PDFTimesheetRenderer {
                 color: UIColor(white: 0.86, alpha: 1)
             )
             drawText(
-                L10n.t("Pay Period: ", "计薪周期：") + "\(periodDF.string(from: summary.startDate)) – \(periodDF.string(from: summary.endDate))",
+                L10n.t("Pay Period: ", "计薪周期：", "發薪週期：") + "\(periodDF.string(from: summary.startDate)) – \(periodDF.string(from: summary.endDate))",
                 in: CGRect(x: margin, y: 66, width: contentW * 0.65, height: 16),
                 font: .systemFont(ofSize: 9.5, weight: .medium),
                 color: UIColor(white: 0.72, alpha: 1)
@@ -97,7 +97,7 @@ enum PDFTimesheetRenderer {
             UIColor.white.withAlphaComponent(0.10).setFill()
             UIBezierPath(roundedRect: pillRect, cornerRadius: 10).fill()
             drawText(
-                L10n.t("EST. NET TAKE-HOME", "预估税后到手"),
+                L10n.t("EST. NET TAKE-HOME", "预估税后到手", "預估稅後實領"),
                 in: CGRect(x: pillRect.minX + 12, y: pillRect.minY + 8, width: pillRect.width - 24, height: 14),
                 font: .systemFont(ofSize: 8.5, weight: .bold),
                 color: mint,

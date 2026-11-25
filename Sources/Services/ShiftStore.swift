@@ -30,8 +30,8 @@ final class ShiftStore: ObservableObject {
            let loaded = try? dec.decode(AppPreferences.self, from: data) {
             preferences = loaded
         } else {
-            preferences.currencySymbol = L10n.isChinese ? "¥" : "$"
-            preferences.employeeName = L10n.t("Alex Rivera, RN", "林晓明")
+            preferences.currencySymbol = L10n.t("$", "¥", "HK$")
+            preferences.employeeName = L10n.t("Alex Rivera, RN", "林晓明", "陳家豪 RN")
         }
 
         if let data = defaults.data(forKey: jobsKey),
@@ -253,20 +253,34 @@ final class ShiftStore: ObservableObject {
         return shifts.count
     }
 
-    // MARK: - Starter Data (Localized EN + ZH)
-    func seedRealisticStarterData(referenceDate: Date = Date()) {
-        let isZH = L10n.isChinese
-        let curr = isZH ? "¥" : "$"
-        preferences.currencySymbol = curr
-        preferences.employeeName = isZH ? "林晓明 · 急诊科护士" : "Alex Rivera, RN"
-        preferences.payPeriodCycle = .biweekly
-        preferences.use24HourTime = true
+    // MARK: - Day-0 Onboarding Quick Setup
+    func applyOnboardingSetup(
+        pattern: RotationPattern,
+        hourlyRate: Double,
+        includeNightDiff: Bool,
+        referenceDate: Date = Date()
+    ) {
+        let curr = L10n.t("$", "¥", "HK$")
+        let defaultNightDiff: Double = L10n.currentLanguage == .zhHant ? 35.0 : (L10n.isChinese ? 12.0 : 4.5)
+        let defaultWeekendDiff: Double = L10n.currentLanguage == .zhHant ? 25.0 : (L10n.isChinese ? 8.0 : 3.0)
+        let defaultTax: Double = L10n.isChinese ? 10.0 : 22.0
 
-        let mainJob = JobProfile(
-            name: isZH ? "仁和医院急诊科（12h倒班）" : "St. Jude Medical Center (RN 12h)",
-            role: isZH ? "急诊科三班倒护师" : "ICU Staff Nurse · 12h",
+        let jobName: String = {
+            switch pattern {
+            case .nurse3x12:
+                return L10n.t("Hospital 3×12 Shift", "医院 12h 倒班主职", "醫院 12h 輪班正職")
+            case .panama223:
+                return L10n.t("2-2-3 Panama Rotation", "2-2-3 巴拿马轮班", "2-2-3 巴拿馬輪班")
+            default:
+                return L10n.t("Primary Shift Job", "我的主工作", "我的主要工作")
+            }
+        }()
+
+        let primaryJob = JobProfile(
+            name: jobName,
+            role: pattern.title,
             colorHex: "#2563EB",
-            hourlyRate: isZH ? 65.0 : 44.0,
+            hourlyRate: max(1.0, hourlyRate),
             defaultUnpaidBreakMinutes: 30,
             dailyOTThresholdHours: 8.0,
             dailyOTMultiplier: 1.5,
@@ -274,18 +288,62 @@ final class ShiftStore: ObservableObject {
             dailyDoubleTimeMultiplier: 2.0,
             weeklyOTThresholdHours: 40.0,
             weeklyOTMultiplier: 1.5,
-            nightDifferentialPerHour: isZH ? 12.0 : 4.5,
-            weekendDifferentialPerHour: isZH ? 8.0 : 3.0,
+            nightDifferentialPerHour: includeNightDiff ? defaultNightDiff : 0.0,
+            weekendDifferentialPerHour: defaultWeekendDiff,
             holidayMultiplier: 2.0,
-            estimatedTaxRatePercent: isZH ? 12.0 : 22.0,
+            estimatedTaxRatePercent: defaultTax,
+            currencySymbol: curr
+        )
+
+        preferences.currencySymbol = curr
+        jobs = [primaryJob]
+        shifts = []
+        activeSession = nil
+
+        let cal = Calendar.current
+        let period = PayEngine.payPeriodRange(cycle: preferences.payPeriodCycle, referenceDate: referenceDate, offset: 0, calendar: cal)
+        _ = applyRotation(
+            pattern: pattern,
+            job: primaryJob,
+            startDate: period.start,
+            weeks: StoreManager.freeRotationMaxWeeks,
+            replaceExistingForJobInRange: true
+        )
+    }
+
+    // MARK: - Starter Data (Localized EN + ZH-Hans + ZH-Hant)
+    func seedRealisticStarterData(referenceDate: Date = Date()) {
+        let lang = L10n.currentLanguage
+        let curr = L10n.t("$", "¥", "HK$")
+        preferences.currencySymbol = curr
+        preferences.employeeName = L10n.t("Alex Rivera, RN", "林晓明 · 急诊科护士", "陳家豪 · 急症室護士")
+        preferences.payPeriodCycle = .biweekly
+        preferences.use24HourTime = true
+
+        let mainJob = JobProfile(
+            name: L10n.t("St. Jude Medical Center (RN 12h)", "仁和医院急诊科（12h倒班）", "仁安醫院急症科（12h輪班）"),
+            role: L10n.t("ICU Staff Nurse · 12h", "急诊科三班倒护师", "深切治療部護士 · 12h"),
+            colorHex: "#2563EB",
+            hourlyRate: lang == .zhHant ? 220.0 : (lang == .zhHans ? 65.0 : 44.0),
+            defaultUnpaidBreakMinutes: 30,
+            dailyOTThresholdHours: 8.0,
+            dailyOTMultiplier: 1.5,
+            dailyDoubleTimeThresholdHours: 12.0,
+            dailyDoubleTimeMultiplier: 2.0,
+            weeklyOTThresholdHours: 40.0,
+            weeklyOTMultiplier: 1.5,
+            nightDifferentialPerHour: lang == .zhHant ? 35.0 : (lang == .zhHans ? 12.0 : 4.5),
+            weekendDifferentialPerHour: lang == .zhHant ? 25.0 : (lang == .zhHans ? 8.0 : 3.0),
+            holidayMultiplier: 2.0,
+            estimatedTaxRatePercent: lang == .en ? 22.0 : 12.0,
             currencySymbol: curr
         )
 
         let sideJob = JobProfile(
-            name: isZH ? "周末全屋木作安装副业" : "Weekend Carpentry Side Work",
-            role: isZH ? "精装木工与定制安装" : "Finish Trim & Custom Framing",
+            name: L10n.t("Weekend Carpentry Side Work", "周末全屋木作安装副业", "週末兼職安裝副業"),
+            role: L10n.t("Finish Trim & Custom Framing", "精装木工与定制安装", "客製木工與安裝"),
             colorHex: "#10B981",
-            hourlyRate: isZH ? 90.0 : 55.0,
+            hourlyRate: lang == .zhHant ? 260.0 : (lang == .zhHans ? 90.0 : 55.0),
             defaultUnpaidBreakMinutes: 30,
             dailyOTThresholdHours: 8.0,
             dailyOTMultiplier: 1.5,
@@ -296,7 +354,7 @@ final class ShiftStore: ObservableObject {
             nightDifferentialPerHour: 0,
             weekendDifferentialPerHour: 0,
             holidayMultiplier: 1.5,
-            estimatedTaxRatePercent: isZH ? 8.0 : 24.0,
+            estimatedTaxRatePercent: lang == .en ? 24.0 : 8.0,
             currencySymbol: curr
         )
 
@@ -331,7 +389,7 @@ final class ShiftStore: ObservableObject {
                 isHoliday: holiday,
                 applyNightDiff: nightDiff,
                 applyWeekendDiff: type.isPayable && PayEngine.isWeekend(s, calendar: cal),
-                notes: isZH ? noteZH : noteEN
+                notes: L10n.isChinese ? noteZH : noteEN
             )
         }
 

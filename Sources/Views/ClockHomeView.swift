@@ -3,6 +3,7 @@ import SwiftUI
 struct ClockHomeView: View {
     @EnvironmentObject private var shiftStore: ShiftStore
     @EnvironmentObject private var store: StoreManager
+    @EnvironmentObject private var reviewManager: ReviewPromptManager
 
     var onOpenPaywall: (String?) -> Void
 
@@ -82,7 +83,7 @@ struct ClockHomeView: View {
                 .padding(.vertical, 12)
             }
             .background(ShiftTheme.canvas.ignoresSafeArea())
-            .navigationTitle(L10n.t("FlatShift", "FlatShift 倒班算薪"))
+            .navigationTitle(L10n.t("FlatShift", "FlatShift 倒班算薪", "FlatShift 更表算薪"))
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -98,7 +99,7 @@ struct ClockHomeView: View {
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(ShiftTheme.border, lineWidth: 1))
                         }
-                        .accessibilityLabel(L10n.t("Toggle Night Shift Dark Mode", "切换夜班深色模式"))
+                        .accessibilityLabel(L10n.t("Toggle Night Shift Dark Mode", "切换夜班深色模式", "切換夜班深色模式"))
 
                         if store.isPro {
                             Text("PRO")
@@ -115,7 +116,7 @@ struct ClockHomeView: View {
                                 HStack(spacing: 4) {
                                     Image(systemName: "seal.fill")
                                         .font(.caption2)
-                                    Text(L10n.t("Lifetime \(store.displayPrice(for: FlatShiftProductID.lifetime))", "买断 \(store.displayPrice(for: FlatShiftProductID.lifetime))"))
+                                    Text(L10n.t("Pro \(store.displayPrice(for: FlatShiftProductID.lifetime))", "买断 \(store.displayPrice(for: FlatShiftProductID.lifetime))", "永久買斷 \(store.displayPrice(for: FlatShiftProductID.lifetime))"))
                                         .font(.caption.weight(.bold).monospacedDigit())
                                 }
                                 .padding(.horizontal, 10)
@@ -130,7 +131,10 @@ struct ClockHomeView: View {
             }
             .sheet(item: $editingShift) { target in
                 ShiftEditorSheet(shift: target, isNew: isNewShift) { _ in
-                    showToast(L10n.t("Shift saved & pay recalculated.", "班次已保存，薪资已重算。"))
+                    if isNewShift {
+                        reviewManager.recordShiftLogged()
+                    }
+                    showToast(L10n.t("Shift saved & pay recalculated.", "班次已保存，薪资已重算。", "更次已儲存，薪資已重算。"))
                 }
             }
             .onAppear {
@@ -187,45 +191,90 @@ struct ClockHomeView: View {
             }
 
             HStack(alignment: .firstTextBaseline, spacing: 16) {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(L10n.t("EST. NET TAKE-HOME", "预估税后到手"))
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(ShiftTheme.shiftMint)
-                    Text(PayEngine.formatMoney(summary.estimatedNetPay, symbol: summary.currencySymbol))
-                        .font(.system(size: 32, weight: .heavy, design: .rounded).monospacedDigit())
-                        .foregroundStyle(.white)
-                        .minimumScaleFactor(0.72)
-                        .lineLimit(1)
-                }
+                if store.isPro {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(L10n.t("EST. NET TAKE-HOME", "预估税后到手", "預估稅後實領"))
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(ShiftTheme.shiftMint)
+                        Text(PayEngine.formatMoney(summary.estimatedNetPay, symbol: summary.currencySymbol))
+                            .font(.system(size: 32, weight: .heavy, design: .rounded).monospacedDigit())
+                            .foregroundStyle(.white)
+                            .minimumScaleFactor(0.72)
+                            .lineLimit(1)
+                    }
 
-                Spacer(minLength: 8)
+                    Spacer(minLength: 8)
 
-                VStack(alignment: .trailing, spacing: 3) {
-                    Text(L10n.t("GROSS PAY", "税前应发"))
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(Color.white.opacity(0.65))
-                    Text(PayEngine.formatMoney(summary.totalGrossPay, symbol: summary.currencySymbol))
-                        .font(.title3.weight(.bold).monospacedDigit())
-                        .foregroundStyle(Color.white.opacity(0.92))
-                        .minimumScaleFactor(0.75)
-                        .lineLimit(1)
+                    VStack(alignment: .trailing, spacing: 3) {
+                        Text(L10n.t("GROSS PAY", "税前应发", "稅前應發"))
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(Color.white.opacity(0.65))
+                        Text(PayEngine.formatMoney(summary.totalGrossPay, symbol: summary.currencySymbol))
+                            .font(.title3.weight(.bold).monospacedDigit())
+                            .foregroundStyle(Color.white.opacity(0.92))
+                            .minimumScaleFactor(0.75)
+                            .lineLimit(1)
+                    }
+                } else {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(L10n.t("GROSS PAY", "税前应发总额", "稅前應發總額"))
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(ShiftTheme.shiftMint)
+                        Text(PayEngine.formatMoney(summary.totalGrossPay, symbol: summary.currencySymbol))
+                            .font(.system(size: 32, weight: .heavy, design: .rounded).monospacedDigit())
+                            .foregroundStyle(.white)
+                            .minimumScaleFactor(0.72)
+                            .lineLimit(1)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Button {
+                        let otAndDiff = PayEngine.roundCents(summary.totalOTCombinedPay + summary.totalDifferentialPay)
+                        let msg = otAndDiff > 0
+                            ? L10n.t(
+                                "You earned \(PayEngine.formatMoney(otAndDiff, symbol: summary.currencySymbol)) in OT & differentials this period. Unlock Pro for full 1.5x/2.0x & net pay audit.",
+                                "您本期已赚取 \(PayEngine.formatMoney(otAndDiff, symbol: summary.currencySymbol)) 加班与夜班津贴。解锁 Pro 查看完整 1.5x/2.0x 与税后实发。",
+                                "您本期已賺取 \(PayEngine.formatMoney(otAndDiff, symbol: summary.currencySymbol)) 加班費與夜班津貼。解鎖 Pro 檢視完整 1.5x/2.0x 與稅後實領。"
+                            )
+                            : nil
+                        onOpenPaywall(msg)
+                    } label: {
+                        VStack(alignment: .trailing, spacing: 3) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "lock.fill")
+                                    .font(.system(size: 8.5))
+                                Text(L10n.t("EST. NET (PRO)", "预估实发 (PRO)", "預估實領 (PRO)"))
+                                    .font(.system(size: 9.5, weight: .bold))
+                            }
+                            .foregroundStyle(ShiftTheme.overtimeAmber)
+                            Text(PayEngine.formatMoney(summary.estimatedNetPay, symbol: summary.currencySymbol))
+                                .font(.title3.weight(.bold).monospacedDigit())
+                                .foregroundStyle(Color.white.opacity(0.92))
+                                .minimumScaleFactor(0.75)
+                                .lineLimit(1)
+                        }
+                    }
+                    .buttonStyle(.plain)
                 }
             }
 
-            // 3 Metric Pills: Regular, OT, Differentials
+            // 3 Metric Pills: Base Hours, OT Earned, Diff Bonus
             HStack(spacing: 8) {
                 heroPill(
-                    label: L10n.t("Regular", "正常工时"),
-                    value: PayEngine.formatHours(summary.totalRegularHours),
+                    label: L10n.t("Total Hours", "总工时", "總工時"),
+                    value: PayEngine.formatHours(summary.totalHours),
                     color: .white
                 )
                 heroPill(
-                    label: L10n.t("Overtime", "加班工时"),
-                    value: PayEngine.formatHours(summary.totalOTCombinedHours),
+                    label: L10n.t("OT Earned", "加班费", "加班費"),
+                    value: summary.totalOTCombinedPay > 0
+                        ? "+" + PayEngine.formatMoney(summary.totalOTCombinedPay, symbol: summary.currencySymbol)
+                        : PayEngine.formatHours(summary.totalOTCombinedHours),
                     color: ShiftTheme.overtimeAmber
                 )
                 heroPill(
-                    label: L10n.t("Diff Bonus", "夜/周津贴"),
+                    label: L10n.t("Diff Bonus", "夜/周津贴", "夜班津貼"),
                     value: "+" + PayEngine.formatMoney(summary.totalDifferentialPay, symbol: summary.currencySymbol),
                     color: Color(red: 167/255, green: 139/255, blue: 250/255)
                 )
@@ -357,7 +406,8 @@ struct ClockHomeView: View {
                         HStack(spacing: 10) {
                             Button {
                                 if let saved = shiftStore.clockOutAndSave() {
-                                    showToast(L10n.t("Clocked out · Saved \(PayEngine.formatHours(saved.payableHours)) shift!", "已下班打卡 · 记录 \(PayEngine.formatHours(saved.payableHours)) 班次！"))
+                                    reviewManager.recordShiftLogged()
+                                    showToast(L10n.t("Clocked out · Saved \(PayEngine.formatHours(saved.payableHours)) shift!", "已下班打卡 · 记录 \(PayEngine.formatHours(saved.payableHours)) 班次！", "已下班打卡 · 記錄 \(PayEngine.formatHours(saved.payableHours)) 更次！"))
                                 }
                             } label: {
                                 Label(L10n.t("Clock Out & Save Shift", "下班打卡并算薪"), systemImage: "stop.circle.fill")
